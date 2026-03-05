@@ -70,3 +70,17 @@ export const APPOINTMENT_LIST_ITEMS = [
   "+966 50 123 4567",
   "+966 50 123 4567",
 ];
+
+
+export const FILTER_OPTIONS = {
+  date: 'DATE',
+  time: 'TIME',
+  status: 'STATUS',
+  spec: 'SPECIALITY',
+  depart: 'DEPARTMENT',
+  gender: 'GENDER',
+  ins: 'INSURANCE',
+  branch: 'BRANCH',
+  wh: 'WORKING_HOUR',
+  dist: 'DISTANCE'
+}

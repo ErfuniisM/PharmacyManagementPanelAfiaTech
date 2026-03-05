@@ -1,11 +1,11 @@
 import Filter from "./filter";
-import Searchbox from "./searchbox";
+import SearchBox from "./searchbox";
 
-const Toolbox = () => {
+const Toolbox = ({ filters }) => {
   return (
     <div className="flex gap-2">
-      <Searchbox />
-      <Filter filterOptions=[] />
+      <SearchBox />
+      <Filter items={filters} />
     </div>
   );
 };

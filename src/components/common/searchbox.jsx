@@ -1,4 +1,4 @@
-const Searchbox = () => {
+const SearchBox = () => {
   return (
     <input
       className="flex h-auto items-center justify-center text-black p-[20px] bg-white w-full rounded-[10px]"
@@ -8,4 +8,4 @@ const Searchbox = () => {
   );
 };
 
-export default Searchbox;
+export default SearchBox;
