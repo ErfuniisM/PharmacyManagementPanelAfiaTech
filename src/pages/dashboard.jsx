@@ -13,31 +13,42 @@ const APPOINTNET_TABEL_HEADER = [
   TABEL_HEADER.phone,
 ];
 
+const TOTAL_CARD_DATA = [
+  {
+    name: "Total Patient",
+    amount: "400000",
+    color: "bg-amber-600",
+  },
+  {
+    name: "Total Appointments",
+    amount: "400000",
+    color: "bg-amber-300",
+  },
+  {
+    name: "Total Sales",
+    amount: "400000",
+    color: "bg-amber-400",
+  },
+  {
+    name: "Total Pending",
+    amount: "400000",
+    color: "bg-amber-400",
+  },
+];
+
 const Dashboard = () => {
+  
   return (
     <Container>
       <Content title="Dashboard">
         <div className="flex flex-row gap-6 justify-center">
-          <Totalcards
-            total_name="Total Patient"
-            total_amount="40,689"
-            bg_color="bg-amber-600"
-          />
-          <Totalcards
-            total_name="Total Appointment"
-            total_amount="10293"
-            bg_color="bg-amber-300"
-          />
-          <Totalcards
-            total_name="Total Sales"
-            total_amount="89,000"
-            bg_color="bg-emerald-400"
-          />
-          <Totalcards
-            total_name="Total Pending"
-            total_amount="2040"
-            bg_color="bg-blue-400"
-          />
+          {TOTAL_CARD_DATA.map((item) => (
+            <Totalcards
+              total_name={item.name}
+              total_amount={item.amount}
+              bg_color={item.color}
+            />
+          ))}
         </div>
         <div className="flex flex-col mt-4 gap-4 justify-between h-16">
           <h1>Appoinment</h1>

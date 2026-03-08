@@ -6,7 +6,6 @@ import Phatmacies from "./pages/phatmacies";
 import Schedule from "./pages/schedule";
 import Staff from "./pages/staff";
 import Dashboard from "./pages/dashboard";
-import { Link, Links } from "react-router-dom";
 
 const App = () => {
   return <Dashboard />;
