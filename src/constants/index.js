@@ -4,6 +4,7 @@ export const SIDEBAR_MENU_ITEMS = [
   {
     item: "Dashboard",
     src: "../../../public/icons/dashboard.svg",
+    link: "dashboard",
   },
   {
     item: "Appointments",
@@ -43,14 +44,6 @@ export const APPOINTMENT_TITLE = [
   "Phone number",
 ];
 
-export const APPOINTMENT = [
-  "123451",
-  "Amina AL-Shehri",
-  "Dr. Ahmed AI-Farsi",
-  "10:30-11:00",
-  "+966 50 123 4567",
-];
-
 export const APPOINTMENT_LIST = [
   "National ID",
   "Patient",
@@ -61,26 +54,36 @@ export const APPOINTMENT_LIST = [
   "Action",
 ];
 
-export const APPOINTMENT_LIST_ITEMS = [
-  "123451",
-  "Amina AL-Shehri",
-  "Dr. Ahmed AI-Farsi",
-  "10:30-11:00",
-  "+966 50 123 4567",
-  "+966 50 123 4567",
-  "+966 50 123 4567",
-];
-
-
 export const FILTER_OPTIONS = {
-  date: 'DATE',
-  time: 'TIME',
-  status: 'STATUS',
-  spec: 'SPECIALITY',
-  depart: 'DEPARTMENT',
-  gender: 'GENDER',
-  ins: 'INSURANCE',
-  branch: 'BRANCH',
-  wh: 'WORKING_HOUR',
-  dist: 'DISTANCE'
-}
+  date: "DATE",
+  time: "TIME",
+  status: "STATUS",
+  spec: "SPECIALITY",
+  depart: "DEPARTMENT",
+  gender: "GENDER",
+  ins: "INSURANCE",
+  branch: "BRANCH",
+  wh: "WORKING_HOUR",
+  dist: "DISTANCE",
+};
+
+export const TABEL_HEADER = {
+  name: "Name",
+  national: "National ID",
+  patient: "Patient",
+  doctor: "Doctor",
+  date: "Date",
+  time: "Time",
+  action: "Action",
+  phone: "Phone Number",
+  spec: "Speciality",
+  joinDate: "Join Date",
+  dep: "Department",
+  lastVisit: "Last Visit",
+  gender: "Gender",
+  insurance: "Insurance",
+  pharmacy: "Pharmacy Name",
+  branch: "Branch",
+  wh: "Working hours",
+  status: "Status",
+};

@@ -1,7 +1,17 @@
-import Appoinments from "../components/common/appoinments";
 import Totalcards from "../components/common/totalcards";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
+import TableList from "../components/common/tabelList";
+import { TABEL_HEADER } from "../constants";
+import { DASHBOARD_ITEMS } from "../constants/database";
+
+const APPOINTNET_TABEL_HEADER = [
+  TABEL_HEADER.national,
+  TABEL_HEADER.patient,
+  TABEL_HEADER.doctor,
+  TABEL_HEADER.time,
+  TABEL_HEADER.phone,
+];
 
 const Dashboard = () => {
   return (
@@ -31,9 +41,7 @@ const Dashboard = () => {
         </div>
         <div className="flex flex-col gap-4 justify-between  h-16 p-4">
           <h1>Appoinment</h1>
-          <Appoinments />
-          <Appoinments />
-          <Appoinments />
+          <TableList header={APPOINTNET_TABEL_HEADER} body={DASHBOARD_ITEMS} />
         </div>
       </Content>
     </Container>

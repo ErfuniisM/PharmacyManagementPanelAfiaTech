@@ -1,6 +1,6 @@
 const Content = ({ children, title, buttonTitle, onButtonClick }) => {
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <div className="flex justify-between items-center h-16 p-4">
         <h1>{title}</h1>
         {buttonTitle && (

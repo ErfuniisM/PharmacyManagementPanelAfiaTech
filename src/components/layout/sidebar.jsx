@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { SIDEBAR_MENU_ITEMS } from "../../constants";
 
 const Sidebar = () => {
