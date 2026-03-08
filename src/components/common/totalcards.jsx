@@ -1,6 +1,6 @@
 const Totalcards = ({ total_name, total_amount, bg_color }) => {
   return (
-    <div className="flex flex-col items-center shadow-sm gap-6 w-full h-40 rounded-2xl bg-white p-[20px]">
+    <div className="flex flex-col items-center shadow-sm gap-6 w-full h-full rounded-2xl bg-white p-[20px]">
       <div className="flex items-center w-full justify-between">
         <div className="flex flex-col gap-3">
           <span className="text-[14px]">{total_name}</span>

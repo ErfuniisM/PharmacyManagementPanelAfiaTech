@@ -9,8 +9,8 @@ import Dashboard from "./pages/dashboard";
 import { Link, Links } from "react-router-dom";
 
 const App = () => {
-  // return <Dashboard />;
-  return <Appointments />;
+  return <Dashboard />;
+  // return <Appointments />;
   // return <ClinicInfo />;
   // return <Schedule />;
   // return <Phatmacies />;
