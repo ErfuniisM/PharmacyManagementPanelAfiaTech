@@ -39,7 +39,7 @@ const Dashboard = () => {
             bg_color="bg-blue-400"
           />
         </div>
-        <div className="flex flex-col gap-4 justify-between  h-16 p-4">
+        <div className="flex flex-col mt-4 gap-4 justify-between h-16">
           <h1>Appoinment</h1>
           <TableList header={APPOINTNET_TABEL_HEADER} body={DASHBOARD_ITEMS} />
         </div>
