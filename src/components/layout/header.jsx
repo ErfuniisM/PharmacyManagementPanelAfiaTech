@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import Avatar from "../common/avatar";
-import TitleUser from "../common/titleuser";
+import TitleUser from "../common/titleUser";
 let newDate = new Date();
 const Header = () => {
   return (

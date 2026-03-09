@@ -13,7 +13,7 @@ const TabelList = ({ header, body }) => {
           <tr key={idx}>
             {Object.values(item).map((value, i) => (
               <td className="text-center p-5" key={i}>
-                {Array.isArray(value) ? value.join(", ") : value}
+                {value}
               </td>
             ))}
           </tr>

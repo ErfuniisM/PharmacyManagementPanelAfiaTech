@@ -1,5 +1,5 @@
 // import Appoinments_list from "../components/common/appoinments_list";
-import Toolbox from "../components/common/toolbox";
+import Toolbox from "../components/common/toolBox";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import { FILTER_OPTIONS } from "../constants";

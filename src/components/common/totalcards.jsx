@@ -4,7 +4,9 @@ const Totalcards = ({ total_name, total_amount, bg_color }) => {
       <div className="flex items-center w-full justify-between">
         <div className="flex flex-col gap-3">
           <span className="text-[14px]">{total_name}</span>
-          <h2 className="text-3xl font-bold">{total_amount}</h2>
+          <h2 className="text-3xl font-bold">
+            {Number(total_amount).toLocaleString("en-US")}
+          </h2>
         </div>
         <div className={` w-[60px] h-[60px] rounded-[20px]  ${bg_color}`}></div>
       </div>
