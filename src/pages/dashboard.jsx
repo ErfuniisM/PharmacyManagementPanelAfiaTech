@@ -43,6 +43,7 @@ const Dashboard = () => {
         <div className="flex flex-row gap-6 justify-center">
           {TOTAL_CARD_DATA.map((item) => (
             <Totalcards
+              key={item.name}
               total_name={item.name}
               total_amount={item.amount}
               bg_color={item.color}

@@ -4,35 +4,42 @@ export const SIDEBAR_MENU_ITEMS = [
   {
     item: "Dashboard",
     src: "../../../public/icons/dashboard.svg",
-    link: "dashboard",
+    link: "/dashboard",
   },
   {
     item: "Appointments",
     src: "../../../public/icons/appointments.svg",
+    link: "/appointments",
   },
   {
     item: "Doctors",
     src: "../../../public/icons/doctors.svg",
+    link: "/doctors",
   },
   {
     item: "Staff",
     src: "../../../public/icons/staff.svg",
+    link: "/staff",
   },
   {
     item: "Patients",
     src: "../../../public/icons/patients.svg",
+    link: "/ptients",
   },
   {
     item: "Pharmacies",
     src: "../../../public/icons/pharmacies.svg",
+    link: "/pharmacies",
   },
   {
     item: "Schedule",
     src: "../../../public/icons/schedule.svg",
+    link: "/schedule",
   },
   {
     item: "Clinic info",
     src: "../../../public/icons/clinic-info.svg",
+    link: "/clinic-info",
   },
 ];
 

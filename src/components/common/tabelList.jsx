@@ -4,7 +4,9 @@ const TabelList = ({ header, body }) => {
       <thead>
         <tr>
           {header.map((item) => (
-            <th className="text-center p-5">{item}</th>
+            <th className="text-center p-5" key={item}>
+              {item}
+            </th>
           ))}
         </tr>
       </thead>

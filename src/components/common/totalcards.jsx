@@ -8,7 +8,7 @@ const Totalcards = ({ total_name, total_amount, bg_color }) => {
             {Number(total_amount).toLocaleString("en-US")}
           </h2>
         </div>
-        <div className={` w-[60px] h-[60px] rounded-[20px]  ${bg_color}`}></div>
+        <div className={` w-15 h-15 rounded-[20px]  ${bg_color}`}></div>
       </div>
       <span>8.5% Up from yesetrday</span>
     </div>

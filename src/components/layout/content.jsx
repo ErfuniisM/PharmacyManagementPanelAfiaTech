@@ -1,13 +1,10 @@
-const Content = ({ children, title, buttonTitle, onButtonClick }) => {
+const Content = ({ children, title, buttonTitle, onButtonClick, onOpen }) => {
   return (
     <div className="flex flex-col gap-2 p-4">
       <div className="flex justify-between items-center h-16">
         <h1>{title}</h1>
         {buttonTitle && (
-          <button
-            onClick={onButtonClick}
-            className="flex items-center justify-center text-white p-[20px] bg-red-500 w-fit h-full rounded-[10px] cursor-pointer"
-          >
+          <button className="flex items-center justify-center text-white p-[20px] bg-red-500 w-fit h-full rounded-[10px] cursor-pointer">
             {buttonTitle}
           </button>
         )}
