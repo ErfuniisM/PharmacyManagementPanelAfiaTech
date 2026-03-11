@@ -4,6 +4,7 @@ import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import { FILTER_OPTIONS, TABEL_HEADER } from "../constants";
 import { APPOINTMENTS_ITEMS } from "../constants/database";
+import AppointmentModal from "./modals/appointmentModal";
 
 const APPOINTNET_FILTER_OPTIONS = [
   FILTER_OPTIONS.date,
@@ -23,7 +24,12 @@ const APPOINTNET_TABEL_HEADER = [
 const Appointments = () => {
   return (
     <Container>
-      <Content title="Appointments" buttonTitle="Add an Appointment">
+      <Content
+        modal={<AppointmentModal />}
+        title="Appointments"
+        buttonTitle="Add an Appointment"
+        modalTitle='Appointment Modal'
+      >
         <Toolbox filters={APPOINTNET_FILTER_OPTIONS} />
         <TabelList header={APPOINTNET_TABEL_HEADER} body={APPOINTMENTS_ITEMS} />
       </Content>

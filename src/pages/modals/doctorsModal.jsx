@@ -1,6 +1,9 @@
+import React from "react";
 import Modal from "react-modal";
 
-const TestModal = ({ isOpen, onRequestClose }) => {
+Modal.setAppElement("#root");
+
+const DoctorsModal = ({ isOpen, onRequestClose }) => {
   return (
     <Modal
       className="absolute inset-[40px] rounded-2 bg-amber-100 p-[20px] shadow-sm m-auto w-[50%] outline-none"
@@ -9,13 +12,16 @@ const TestModal = ({ isOpen, onRequestClose }) => {
       contentLabel="مثال مودال"
     >
       <div className="flex flex-col items-center justify-center">
-        <h3>Modal 1</h3>
+        <h3>Doctors Modal</h3>
         <button className="bg-amber-50 w-30 h-20" onClick={onRequestClose}>
           Close
         </button>
       </div>
+
+      gdd
+      
     </Modal>
   );
 };
 
-export default TestModal;
+export default DoctorsModal;

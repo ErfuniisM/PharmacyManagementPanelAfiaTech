@@ -25,7 +25,7 @@ const APPOINTNET_TABEL_HEADER = [
 const Doctors = () => {
   return (
     <Container>
-      <Content title="Doctor" buttonTitle="Add a Doctor">
+      <Content modal={<DoctorsModal />} title="Doctor" buttonTitle="Add a Doctor">
         <Toolbox filters={APPOINTNET_FILTER_OPTIONS} />
         <TableList header={APPOINTNET_TABEL_HEADER} body={DOCTORS_ITEMS} />
       </Content>
