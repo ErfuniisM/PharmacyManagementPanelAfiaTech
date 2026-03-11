@@ -16,34 +16,54 @@ const APPOINTNET_TABEL_HEADER = [
 const TOTAL_CARD_DATA = [
   {
     name: "Total Patient",
+<<<<<<< HEAD
     amount: "40689",
+=======
+    amount: "400000",
+>>>>>>> 5e13725ea09cbcc2f571023f26c5f1b529a581b8
     color: "bg-amber-600",
   },
   {
     name: "Total Appointments",
+<<<<<<< HEAD
     amount: "10293",
+=======
+    amount: "400000",
+>>>>>>> 5e13725ea09cbcc2f571023f26c5f1b529a581b8
     color: "bg-amber-300",
   },
   {
     name: "Total Sales",
+<<<<<<< HEAD
     amount: "8900",
+=======
+    amount: "400000",
+>>>>>>> 5e13725ea09cbcc2f571023f26c5f1b529a581b8
     color: "bg-amber-400",
   },
   {
     name: "Total Pending",
+<<<<<<< HEAD
     amount: "2040",
+=======
+    amount: "400000",
+>>>>>>> 5e13725ea09cbcc2f571023f26c5f1b529a581b8
     color: "bg-amber-400",
   },
 ];
 
 const Dashboard = () => {
+  
   return (
     <Container>
       <Content title="Dashboard">
         <div className="flex flex-row gap-6 justify-center">
           {TOTAL_CARD_DATA.map((item) => (
             <Totalcards
+<<<<<<< HEAD
               key={item.name}
+=======
+>>>>>>> 5e13725ea09cbcc2f571023f26c5f1b529a581b8
               total_name={item.name}
               total_amount={item.amount}
               bg_color={item.color}
