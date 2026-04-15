@@ -1,26 +1,45 @@
-import React from "react";
+import { useState } from "react";
+import SearchBox from "../../components/common/searchBox";
+import Button from "../../components/common/button";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
-const DoctorsModal = ({ isOpen, onRequestClose }) => {
+const DoctorsModal = () => {
+  const [step, setStep] = useState(1);
+  const nextStep = () => setStep((prev) => prev + 1);
+  // const prevStep = () => setStep((prev) => prev - 1);
   return (
-    <Modal
-      className="absolute inset-[40px] rounded-2 bg-amber-100 p-[20px] shadow-sm m-auto w-[50%] outline-none"
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      contentLabel="مثال مودال"
-    >
-      <div className="flex flex-col items-center justify-center">
-        <h3>Doctors Modal</h3>
-        <button className="bg-amber-50 w-30 h-20" onClick={onRequestClose}>
-          Close
-        </button>
-      </div>
-
-      gdd
-      
-    </Modal>
+    <div className="flex flex-col mt-20">
+      {step === 1 && (
+        <>
+          <div className="flex flex-col">
+            <div className="flex mt-5 gap-5">
+              <SearchBox />
+            </div>
+            <div className="flex justify-center mt-75">
+              <Button titleButton="Next" onClick={nextStep} />
+            </div>
+          </div>
+        </>
+      )}
+      {step === 2 && (
+        <>
+          <div className="flex flex-col">
+            <div className="flex flex-col items-center gap-20">
+              <img src="../../../public/avatar.png" alt="" />
+              <span className="font-bold">
+                Your request has been sent to the doctor. We'll notify you once
+                it's confirmed.
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center mt-75 gap-5 cursor-pointer">
+              <Button titleButton="Done" onClick={nextStep} />
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 

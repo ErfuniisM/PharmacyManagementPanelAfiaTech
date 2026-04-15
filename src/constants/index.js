@@ -1,4 +1,4 @@
-export const API_URL = "https://google.com/api";
+export const API_URL = "http://localhost:5000";
 
 export const SIDEBAR_MENU_ITEMS = [
   {
@@ -65,6 +65,7 @@ export const FILTER_OPTIONS = {
   date: "DATE",
   time: "TIME",
   status: "STATUS",
+  status2: "STATUS2",
   spec: "SPECIALITY",
   depart: "DEPARTMENT",
   gender: "GENDER",
@@ -85,10 +86,10 @@ export const TABEL_HEADER = {
   phone: "Phone Number",
   spec: "Speciality",
   joinDate: "Join Date",
-  dep: "Department",
+  depart: "Department",
   lastVisit: "Last Visit",
   gender: "Gender",
-  insurance: "Insurance",
+  ins: "Insurance",
   pharmacy: "Pharmacy Name",
   branch: "Branch",
   wh: "Working hours",

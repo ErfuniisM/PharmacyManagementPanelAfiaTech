@@ -28,15 +28,20 @@ const Content = ({ children, title, buttonTitle, modal, modalTitle }) => {
       </div>
       {children}
       <Modal
-        className="absolute inset-[40px] rounded-2 bg-amber-100 p-[20px] shadow-sm m-auto w-[50%] outline-none"
+        className="absolute inset-[40px] rounded-[30px] bg-white shadow-2xl p-[40px]  m-auto w-[50%] h-[75%] outline-none"
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
       >
-        <div className="flex flex-col items-center justify-center">
-          <h3>{modalTitle}</h3>
-          <button className="bg-amber-50 w-30 h-20" onClick={closeModal}>
-            Close
-          </button>
+        <div className="flex flex-col  justify-space ">
+          <div className="flex items-center justify-between">
+            <p className="text-2xl font-bold">{modalTitle}</p>
+            <button
+              className="font-bold cursor-pointer text-gray-500 text-2xl "
+              onClick={closeModal}
+            >
+              &times;
+            </button>
+          </div>
         </div>
         {modal}
       </Modal>
