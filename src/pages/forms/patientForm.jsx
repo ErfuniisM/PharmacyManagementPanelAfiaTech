@@ -35,19 +35,20 @@ const PatientForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(schema) });
-  // سسس
+
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center space-y-4 gap-60 p-5"
+      className=" flex h-full flex-col justify-between "
     >
-      <fieldset
-        disabled={isSubmitting}
-        className="flex flex-col justify-center items-center gap-20"
-      >
-        <div className="flex flex-row gap-10">
-          <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4">
+        <h4 className="font-bold">Add a patient</h4>
+        <fieldset
+          disabled={isSubmitting}
+          className="flex justify-between gap-8"
+        >
+          <div className="flex flex-col gap-8 w-full">
             {/* Patient Name */}
             <div className="flex flex-col gap-2">
               <label class="block text-sm font-bold text-gray-700">
@@ -56,7 +57,7 @@ const PatientForm = () => {
               <input
                 {...register("patientName")}
                 type="text"
-                className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
               />
               {errors?.patientName && (
                 <p className="font-bold text-[12px] text-red-600 ">
@@ -72,7 +73,7 @@ const PatientForm = () => {
               <input
                 {...register("email")}
                 type="text"
-                className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
               />
               {errors?.email && (
                 <p className="font-bold text-[12px] text-red-600 ">
@@ -87,14 +88,14 @@ const PatientForm = () => {
               </label>
               <select
                 {...register("gender")} // Register select element too
-                className="w-[300px] h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+                className="w-full h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
               >
                 <option value="Male">Male</option> {/* Add value attributes */}
                 <option value="Female">Female</option>
               </select>
             </div>
           </div>
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 w-full">
             {/* Phone Number */}
             <div className="flex flex-col gap-2">
               <label class="block text-sm font-bold text-gray-700">
@@ -103,7 +104,7 @@ const PatientForm = () => {
               <input
                 {...register("phoneNumber")}
                 type="tel"
-                className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
               />{" "}
               {errors?.phoneNumber && (
                 <p className="font-bold text-[12px] text-red-600 ">
@@ -120,7 +121,7 @@ const PatientForm = () => {
               <input
                 {...register("nationalID")}
                 type="text"
-                className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
               />{" "}
               {errors?.nationalID && (
                 <p className="font-bold text-[12px] text-red-600 ">
@@ -136,7 +137,7 @@ const PatientForm = () => {
               <input
                 {...register("age")}
                 type="text"
-                className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
               />
               {errors?.age && (
                 <p className="font-bold text-[12px] text-red-600 ">
@@ -145,11 +146,11 @@ const PatientForm = () => {
               )}
             </div>
           </div>
-        </div>
-      </fieldset>
+        </fieldset>
+      </div>
       <button
         type="submit"
-        class="w-50 py-2 rounded-md  text-white p-[20px] bg-red-500 transition mt-5" // اضافه کردن کمی فاصله از فیلدهای بالایی
+        className="w-50 py-2 rounded-md mx-auto  text-white p-[20px] bg-red-500 transition"
       >
         {isSubmitting ? "Sending" : "Done"}
       </button>

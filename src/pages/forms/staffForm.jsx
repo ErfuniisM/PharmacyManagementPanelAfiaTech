@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { useForm } from "react-hook-form";
+import dayjs from "dayjs";
 
 function sleep(ms) {
   return new Promise((resolver) => setTimeout(resolver, ms));
@@ -27,77 +28,81 @@ const StaffForm = () => {
   return (
     <form
       onSubmit={handleSubmit(async (data) => await onSubmit(data))}
-      className=" flex flex-col  items-center space-y-4 gap-80 p-5"
+      className=" flex h-full flex-col justify-between "
     >
-      <fieldset
-        disabled={isSubmitting}
-        className="flex justify-center items-center gap-20"
-      >
-        <div className="flex flex-col gap-8">
-          {/* Name */}
-          <div className="flex flex-col gap-2">
-            <label class="block text-sm font-bold text-gray-700">Name</label>
-            <input
-              {...register("name")}
-              type="text"
-              className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
-            />
-            {errors?.name && (
-              <p className="font-bold text-[12px] text-red-600 ">
-                {errors.name.message}
-              </p>
-            )}
+      <div className="flex flex-col gap-4">
+        <h2 className="font-bold">Add a staff member</h2>
+        <fieldset
+          disabled={isSubmitting}
+          className="flex justify-between gap-8"
+        >
+          <div className="flex flex-col gap-8 w-full">
+            {/* Name */}
+            <div className="flex flex-col gap-2">
+              <label class="block text-sm font-bold text-gray-700">Name</label>
+              <input
+                {...register("name")}
+                type="text"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+              />
+              {errors?.name && (
+                <p className="font-bold text-[12px] text-red-600 ">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+            {/* Email */}
+            <div className="flex flex-col gap-2">
+              <label class="block text-sm font-bold text-gray-700">
+                Email (Optional)
+              </label>
+              <input
+                {...register("email")}
+                type="text"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
+              />
+              {errors?.email && (
+                <p className="font-bold text-[12px] text-red-600 ">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
           </div>
-          {/* Email */}
-          <div className="flex flex-col gap-2">
-            <label class="block text-sm font-bold text-gray-700">
-              Email (Optional)
-            </label>
-            <input
-              {...register("email")}
-              type="text"
-              className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
-            />
-            {errors?.email && (
-              <p className="font-bold text-[12px] text-red-600 ">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-        </div>
 
-        <div className="flex flex-col gap-8">
-          {/* Phone Number */}
-          <div className="flex flex-col gap-2">
-            <label class="block text-sm font-bold text-gray-700">
-              Phone Number
-            </label>
-            <input
-              {...register("phoneNumber")}
-              type="tel"
-              className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
-            />{" "}
-            {errors?.phoneNumber && (
-              <p className="font-bold text-[12px] text-red-600 ">
-                {errors.phoneNumber.message}
-              </p>
-            )}
+          <div className="flex flex-col gap-8 w-full">
+            {/* Phone Number */}
+            <div className="flex flex-col gap-2">
+              <label class="block text-sm font-bold text-gray-700">
+                Phone Number
+              </label>
+              <input
+                {...register("phoneNumber")}
+                type="tel"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+              />{" "}
+              {errors?.phoneNumber && (
+                <p className="font-bold text-[12px] text-red-600 ">
+                  {errors.phoneNumber.message}
+                </p>
+              )}
+            </div>
+            {/* Departement */}
+            <div className="flex flex-col gap-2">
+              <label class="block text-sm font-bold text-gray-700">
+                Departement
+              </label>
+              <select className="w-full h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]">
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
           </div>
-          {/* Departement */}
-          <div className="flex flex-col gap-2">
-            <label class="block text-sm font-bold text-gray-700">
-              Departement
-            </label>
-            <select className="w-[300px] h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]">
-              <option>Male</option>
-              <option>Female</option>
-            </select>
-          </div>
-        </div>
-      </fieldset>
+        </fieldset>
+      </div>
+
       <button
         type="submit"
-        class="w-50 py-2 rounded-md  text-white p-[20px] bg-red-500 transition"
+        class="w-50 py-2 rounded-md mx-auto  text-white p-[20px] bg-red-500 transition"
       >
         {isSubmitting ? "Sending" : "Done"}
       </button>

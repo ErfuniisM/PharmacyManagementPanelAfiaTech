@@ -6,7 +6,6 @@ import Content from "../components/layout/content";
 import { FILTER_OPTIONS } from "../constants";
 import TableList from "../components/common/tabelList";
 import { TABEL_HEADER } from "../constants";
-import { STAFF_ITEMS } from "../constants/database";
 import StaffModal from "./modals/staffModal";
 
 const STAFF_FILTER_OPTIONS = [
@@ -31,11 +30,30 @@ const Staff = () => {
     date: "",
     status: "All",
   });
-  const SEARCHED_STAFF = STAFF_ITEMS.filter((appt) => {
-    const name = appt.name?.toLowerCase() ?? "";
-    const t = term.toLowerCase();
-    return name.startsWith(t);
-  })
+
+  const [loading, setLoading] = useState(true);
+  const [staff, setStaff] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/staff`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setStaff(data);
+        setLoading(false);
+      });
+  }, []);
+
+  const SEARCHED_STAFF = staff
+    .filter((appt) => {
+      const name = appt.name?.toLowerCase() ?? "";
+      const t = term.toLowerCase();
+      return name.startsWith(t);
+    })
     .filter(
       (p) =>
         selectedFilters.depart === "All" || p.depart === selectedFilters.depart,
@@ -44,6 +62,10 @@ const Staff = () => {
       (p) =>
         selectedFilters.status === "All" || p.status === selectedFilters.status,
     );
+
+  if (loading) {
+    return <h1>Loading ...</h1>;
+  }
   return (
     <Container>
       <Content
@@ -55,6 +77,13 @@ const Staff = () => {
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          onReset={() =>
+            setSelectedFilters({
+              depart: "All",
+              date: "",
+              status: "All",
+            })
+          }
           selectedFilters={selectedFilters}
           filters={STAFF_FILTER_OPTIONS}
         />

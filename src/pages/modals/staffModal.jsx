@@ -5,12 +5,7 @@ import StaffForm from "../forms/staffForm";
 Modal.setAppElement("#root");
 
 const StaffModal = () => {
-  return (
-    <div>
-      <h4 className="font-bold">Add a staff member</h4>
-      <StaffForm />
-    </div>
-  );
+  return <StaffForm />;
 };
 
 export default StaffModal;

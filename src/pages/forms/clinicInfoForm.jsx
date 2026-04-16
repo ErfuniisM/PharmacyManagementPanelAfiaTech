@@ -34,13 +34,10 @@ const FormClinicInfo = () => {
   return (
     <form
       onSubmit={handleSubmit(async (data) => await onSubmit(data))}
-      className=" flex flex-col  items-center space-y-4"
+      className=" flex h-full flex-col justify-between items-center gap-10 "
     >
-      <fieldset
-        disabled={isSubmitting}
-        className="flex justify-center items-center gap-20"
-      >
-        <div className="flex flex-col gap-8">
+      <fieldset disabled={isSubmitting} className="flex justify-between gap-8">
+        <div className="flex flex-col gap-8 w-full">
           {/* Clinic Name */}
           <div className="flex flex-col gap-2">
             <label class="block text-sm font-bold text-gray-700">
@@ -49,7 +46,7 @@ const FormClinicInfo = () => {
             <input
               {...register("clinicName")}
               type="text"
-              className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+              className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
             />
             {errors?.clinicName && (
               <p className="font-bold text-[12px] text-red-600 ">
@@ -62,10 +59,10 @@ const FormClinicInfo = () => {
             <label class="block text-sm font-bold text-gray-700">
               Specialties Offered
             </label>
-            <select className="w-[300px] h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]">
-              <option>پشتیبانی</option>
-              <option>فروش</option>
-              <option>انتقادات و پیشنهادات</option>
+            <select className="w-full h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
             </select>
           </div>
           {/* Opening Hours */}
@@ -76,7 +73,7 @@ const FormClinicInfo = () => {
             <input
               {...register("openHours")}
               type="text"
-              className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
+              className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
             />
             {errors?.openHours && (
               <p className="font-bold text-[12px] text-red-600 ">
@@ -92,7 +89,7 @@ const FormClinicInfo = () => {
             <input
               {...register("location")}
               type="text"
-              className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
+              className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
             />
             {errors?.location && (
               <p className="font-bold text-[12px] text-red-600 ">
@@ -102,7 +99,7 @@ const FormClinicInfo = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 w-full">
           {/* Phone Number */}
           <div className="flex flex-col gap-2">
             <label class="block text-sm font-bold text-gray-700">
@@ -111,7 +108,7 @@ const FormClinicInfo = () => {
             <input
               {...register("phoneNumber")}
               type="tel"
-              className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+              className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
             />{" "}
             {errors?.phoneNumber && (
               <p className="font-bold text-[12px] text-red-600 ">
@@ -124,10 +121,10 @@ const FormClinicInfo = () => {
             <label class="block text-sm font-bold text-gray-700">
               Insurance Acceptance
             </label>
-            <select className="w-[300px] h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]">
-              <option>پشتیبانی</option>
-              <option>فروش</option>
-              <option>انتقادات و پیشنهادات</option>
+            <select className="w-full h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
             </select>
           </div>
           {/* Facilities */}
@@ -138,7 +135,7 @@ const FormClinicInfo = () => {
             <input
               {...register("facilities")}
               type="text"
-              className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
+              className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
             />{" "}
             {errors?.facilities && (
               <p className="font-bold text-[12px] text-red-600 ">
@@ -154,7 +151,7 @@ const FormClinicInfo = () => {
             <input
               {...register("googleMapLink")}
               type="text"
-              className="w-[300px] flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+              className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
             />
             {errors?.googleMapLink && (
               <p className="font-bold text-[12px] text-red-600 ">

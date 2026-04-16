@@ -5,7 +5,6 @@ import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import TableList from "../components/common/tabelList";
 import { FILTER_OPTIONS, TABEL_HEADER } from "../constants";
-import { PHARMACIES_ITEMS } from "../constants/database";
 import PhatmaciesModal from "./modals/phatmaciesModal";
 
 const PHARMACIES_FILTER_OPTIONS = [FILTER_OPTIONS.branch, FILTER_OPTIONS.wh];
@@ -24,15 +23,38 @@ const Phatmacies = () => {
     branch: "All",
     wh: "",
   });
-  const SEARCHED_PHARMACIES = PHARMACIES_ITEMS.filter((appt) => {
-    const pharmacy = appt.pharmacyName?.toLowerCase() ?? "";
-    const branch = appt.branch?.toLowerCase() ?? "";
-    const t = term.toLowerCase();
-    return pharmacy.startsWith(t) || branch.startsWith(t);
-  }).filter(
-    (p) =>
-      selectedFilters.branch === "All" || p.branch === selectedFilters.branch,
-  );
+
+  const [loading, setLoading] = useState(true);
+  const [phatmacies, setPhatmacies] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/phatmacies`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setPhatmacies(data);
+        setLoading(false);
+      });
+  }, []);
+  const SEARCHED_PHARMACIES = phatmacies
+    .filter((appt) => {
+      const pharmacy = appt.pharmacyName?.toLowerCase() ?? "";
+      const branch = appt.branch?.toLowerCase() ?? "";
+      const t = term.toLowerCase();
+      return pharmacy.startsWith(t) || branch.startsWith(t);
+    })
+    .filter(
+      (p) =>
+        selectedFilters.branch === "All" || p.branch === selectedFilters.branch,
+    );
+
+  if (loading) {
+    return <h1>Loading ...</h1>;
+  }
   return (
     <Container>
       <Content
@@ -44,6 +66,12 @@ const Phatmacies = () => {
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          onReset={() =>
+            setSelectedFilters({
+              branch: "All",
+              wh: "",
+            })
+          }
           selectedFilters={selectedFilters}
           filters={PHARMACIES_FILTER_OPTIONS}
         />

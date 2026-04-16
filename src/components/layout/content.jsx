@@ -20,7 +20,7 @@ const Content = ({ children, title, buttonTitle, modal, modalTitle }) => {
         {buttonTitle && (
           <button
             onClick={openModal}
-            className="flex items-center justify-center text-white p-[20px] bg-red-500 w-fit h-full rounded-[10px] cursor-pointer"
+            className="flex items-center justify-center text-white p-[20px] bg-red-500 w-fit h-1/2 rounded-[10px] cursor-pointer"
           >
             {buttonTitle}
           </button>

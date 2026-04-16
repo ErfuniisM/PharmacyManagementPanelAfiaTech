@@ -6,7 +6,6 @@ import Content from "../components/layout/content";
 import { FILTER_OPTIONS } from "../constants";
 import TableList from "../components/common/tabelList";
 import { TABEL_HEADER } from "../constants";
-import { DOCTORS_ITEMS } from "../constants/database";
 import DoctorsModal from "./modals/doctorsModal";
 
 const DOCTORS_FILTER_OPTIONS = [
@@ -32,11 +31,29 @@ const Doctors = () => {
     status: "All",
   });
 
-  const SEARCHED_DOCTORS = DOCTORS_ITEMS.filter((appt) => {
-    const name = appt.name?.toLowerCase() ?? "";
-    const t = term.toLowerCase();
-    return name.startsWith(t);
-  })
+  const [loading, setLoading] = useState(true);
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/doctors`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setDoctors(data);
+        setLoading(false);
+      });
+  }, []);
+
+  const SEARCHED_DOCTORS = doctors
+    .filter((appt) => {
+      const name = appt.name?.toLowerCase() ?? "";
+      const t = term.toLowerCase();
+      return name.startsWith(t);
+    })
     .filter(
       (p) => selectedFilters.spec === "All" || p.spec === selectedFilters.spec,
     )
@@ -52,12 +69,18 @@ const Doctors = () => {
         modal={<DoctorsModal />}
         title="Doctor"
         buttonTitle="Add a Doctor"
-        modalTitle="Request a Doctor"
       >
         <Toolbox
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          onReset={() =>
+            setSelectedFilters({
+              spec: "All",
+              date: "",
+              status: "All",
+            })
+          }
           selectedFilters={selectedFilters}
           filters={DOCTORS_FILTER_OPTIONS}
         />

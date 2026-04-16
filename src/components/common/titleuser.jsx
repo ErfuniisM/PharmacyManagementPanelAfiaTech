@@ -1,5 +1,5 @@
 const TitleUser = ({ username }) => {
-  return <h3 className="font-extrabold">Welcome back {username} </h3>;
+  return <h2 className="font-black">Welcome back {username} </h2>;
 };
 
 export default TitleUser;

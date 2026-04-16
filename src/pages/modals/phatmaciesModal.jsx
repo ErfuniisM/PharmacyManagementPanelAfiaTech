@@ -5,12 +5,7 @@ import PhatmaciesForm from "../forms/phatmaciesForm";
 Modal.setAppElement("#root");
 
 const PhatmaciesModal = () => {
-  return (
-    <div>
-      <h4 className="font-bold">Add a pharmacy</h4>
-      <PhatmaciesForm />
-    </div>
-  );
+  return <PhatmaciesForm />;
 };
 
 export default PhatmaciesModal;

@@ -71,6 +71,13 @@ const Appointments = () => {
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          onReset={() =>
+            setSelectedFilters({
+              date: "",
+              time: "",
+              status: "All",
+            })
+          }
           selectedFilters={selectedFilters}
           filters={APPOINTNET_FILTER_OPTIONS}
         />

@@ -5,7 +5,6 @@ import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import TableList from "../components/common/tabelList";
 import { FILTER_OPTIONS, TABEL_HEADER } from "../constants";
-import { PATIENTS_ITEMS } from "../constants/database";
 import PatientsModal from "./modals/patientsModal";
 
 const PATIENTS_FILTER_OPTIONS = [
@@ -31,11 +30,29 @@ const Patients = () => {
     date: "",
     ins: "All",
   });
-  const SEARCHED_PATIENTS = PATIENTS_ITEMS.filter((appt) => {
-    const name = appt.name?.toLowerCase() ?? "";
-    const t = term.toLowerCase();
-    return name.startsWith(t) || appt.national.toString().startsWith(term);
-  })
+
+  const [loading, setLoading] = useState(true);
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/patient`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setPatients(data);
+        setLoading(false);
+      });
+  }, []);
+  const SEARCHED_PATIENTS = patients
+    .filter((appt) => {
+      const name = appt.name?.toLowerCase() ?? "";
+      const t = term.toLowerCase();
+      return name.startsWith(t) || appt.national.toString().startsWith(term);
+    })
     .filter(
       (p) =>
         selectedFilters.gender === "All" || p.gender === selectedFilters.gender,
@@ -43,6 +60,10 @@ const Patients = () => {
     .filter(
       (p) => selectedFilters.ins === "All" || p.ins === selectedFilters.ins,
     );
+
+  if (loading) {
+    return <h1>Loading ...</h1>;
+  }
   return (
     <Container>
       <Content
@@ -54,6 +75,13 @@ const Patients = () => {
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          onReset={() =>
+            setSelectedFilters({
+              gender: "All",
+              date: "",
+              ins: "All",
+            })
+          }
           selectedFilters={selectedFilters}
           filters={PATIENTS_FILTER_OPTIONS}
         />

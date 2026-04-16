@@ -4,12 +4,7 @@ import ScheduleForm from "../forms/scheduleForm";
 Modal.setAppElement("#root");
 
 const ScheduleModal = () => {
-  return (
-    <div>
-      <h4 className="font-bold">Add a capacity</h4>
-      <ScheduleForm />
-    </div>
-  );
+  return <ScheduleForm />;
 };
 
 export default ScheduleModal;

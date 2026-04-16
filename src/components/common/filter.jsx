@@ -1,6 +1,6 @@
 import { FILTER_OPTIONS } from "../../constants";
 
-const Filter = ({ items, onFilter, selectedFilters }) => {
+const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
   const renderField = (item) => {
     if (item === FILTER_OPTIONS.date) {
       return (
@@ -139,15 +139,18 @@ const Filter = ({ items, onFilter, selectedFilters }) => {
   };
 
   return (
-    <div className="flex items-center justify-between shadow-sm text-black p-[20px] bg-white w-full h-full rounded-[10px]">
-      <div className="flex-shrink-0">
+    <div className="flex  items-center justify-around shadow-sm text-black  bg-white w-full rounded-[10px]">
+      <div className="flex items-center h-full">
         <span className="text-md font-semibold text-gray-700">Filter By</span>
       </div>
-      <div className="flex flex-wrap gap-5 items-center">
+      <div className="flex items-center h-full gap-10">
         {items.map((item) => renderField(item))}
       </div>
-      <div className="flex-shrink-0">
-        <button className="font-bold px-3 py-1 text-red-600 rounded-lg text-sm transition">
+      <div className="flex items-center h-full">
+        <button
+          onClick={onReset}
+          className="font-bold px-3 py-1 text-red-600 rounded-lg text-sm transition cursor-pointer"
+        >
           Reset Filter
         </button>
       </div>
