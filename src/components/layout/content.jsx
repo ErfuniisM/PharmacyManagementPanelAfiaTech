@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
@@ -28,22 +29,24 @@ const Content = ({ children, title, buttonTitle, modal, modalTitle }) => {
       </div>
       {children}
       <Modal
-        className="absolute inset-[40px] rounded-[30px] bg-white shadow-2xl p-[40px]  m-auto w-[50%] h-[75%] outline-none"
+        className="absolute inset-[40px] rounded-[30px] bg-white shadow-2xl p-[40px] m-auto w-[50%] h-[75%] outline-none"
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
       >
-        <div className="flex flex-col  justify-space ">
+        <div className="flex flex-col justify-space ">
           <div className="flex items-center justify-between">
             <p className="text-2xl font-bold">{modalTitle}</p>
             <button
-              className="font-bold cursor-pointer text-gray-500 text-2xl "
+              className="font-bold cursor-pointer text-gray-500 text-2xl"
               onClick={closeModal}
             >
               &times;
             </button>
           </div>
         </div>
-        {modal}
+        {typeof modal === "function"
+          ? modal(closeModal)
+          : modal && React.cloneElement(modal, { onClose: closeModal })}
       </Modal>
     </div>
   );

@@ -1,11 +1,14 @@
-// import Appoinments_list from "../components/common/appoinments_list";
 import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import Toolbox from "../components/common/toolBox";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import TableList from "../components/common/tabelList";
 import { FILTER_OPTIONS, TABEL_HEADER } from "../constants";
 import PatientsModal from "./modals/patientsModal";
+
+dayjs.extend(customParseFormat);
 
 const PATIENTS_FILTER_OPTIONS = [
   FILTER_OPTIONS.gender,
@@ -23,6 +26,12 @@ const PATIENTS_TABEL_HEADER = [
   TABEL_HEADER.action,
 ];
 
+const convertToISODate = (lastVisitStr) => {
+  if (!lastVisitStr) return "";
+  const parsed = dayjs(lastVisitStr, "ddd, D MMM YYYY");
+  return parsed.isValid() ? parsed.format("YYYY-MM-DD") : "";
+};
+
 const Patients = () => {
   const [term, setTerm] = useState("");
   const [selectedFilters, setSelectedFilters] = useState({
@@ -36,22 +45,23 @@ const Patients = () => {
 
   useEffect(() => {
     fetch(`http://localhost:5000/patient`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         setPatients(data);
         setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+        setLoading(false);
       });
   }, []);
+
   const SEARCHED_PATIENTS = patients
     .filter((appt) => {
       const name = appt.name?.toLowerCase() ?? "";
       const t = term.toLowerCase();
-      return name.startsWith(t) || appt.national.toString().startsWith(term);
+      const national = appt.national?.toString() ?? "";
+      return name.startsWith(t) || national.startsWith(term);
     })
     .filter(
       (p) =>
@@ -59,11 +69,17 @@ const Patients = () => {
     )
     .filter(
       (p) => selectedFilters.ins === "All" || p.ins === selectedFilters.ins,
-    );
+    )
+    .filter((p) => {
+      if (!selectedFilters.date) return true;
+      const visitDate = convertToISODate(p.lastVisit);
+      return visitDate === selectedFilters.date;
+    });
 
   if (loading) {
     return <h1>Loading ...</h1>;
   }
+
   return (
     <Container>
       <Content

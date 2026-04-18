@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
+// dayjs
+import dayjs from "dayjs";
+// customParseFormat
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import TabelList from "../components/common/tabelList";
 import Toolbox from "../components/common/toolBox";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import { FILTER_OPTIONS, TABEL_HEADER } from "../constants";
 import AppointmentModal from "./modals/appointmentModal";
+
+// Custom Date Formater
+dayjs.extend(customParseFormat);
+
+//  Date Format Converter
+const convertToISODate = (dateString) => {
+  if (!dateString) return "";
+  const parsed = dayjs(dateString, "ddd, D MMM YYYY");
+  return parsed.isValid() ? parsed.format("YYYY-MM-DD") : "";
+};
 
 const APPOINTNET_FILTER_OPTIONS = [
   FILTER_OPTIONS.date,
@@ -54,7 +68,12 @@ const Appointments = () => {
     .filter(
       (p) =>
         selectedFilters.status === "All" || p.status === selectedFilters.status,
-    );
+    )
+    .filter((p) => {
+      if (!selectedFilters.date) return true;
+      const visitDate = convertToISODate(p.date); // ✅ درست: استفاده از p.date
+      return visitDate === selectedFilters.date;
+    });
 
   if (loading) {
     return <h1>Loading ...</h1>;

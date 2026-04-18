@@ -62,7 +62,7 @@ export const APPOINTMENT_LIST = [
 ];
 
 export const FILTER_OPTIONS = {
-  date: "DATE",
+  date: "date",
   time: "TIME",
   status: "STATUS",
   status2: "STATUS2",
@@ -80,7 +80,7 @@ export const TABEL_HEADER = {
   national: "National ID",
   patient: "Patient",
   doctor: "Doctor",
-  date: "Date",
+  date: "date",
   time: "Time",
   action: "Action",
   phone: "Phone Number",

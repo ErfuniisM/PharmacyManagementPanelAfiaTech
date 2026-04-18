@@ -1,5 +1,6 @@
-// import Appoinments_list from "../components/common/appoinments_list";
 import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import Toolbox from "../components/common/toolBox";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
@@ -7,6 +8,8 @@ import { FILTER_OPTIONS } from "../constants";
 import TableList from "../components/common/tabelList";
 import { TABEL_HEADER } from "../constants";
 import DoctorsModal from "./modals/doctorsModal";
+
+dayjs.extend(customParseFormat);
 
 const DOCTORS_FILTER_OPTIONS = [
   FILTER_OPTIONS.spec,
@@ -22,6 +25,11 @@ const DOCTORS_TABEL_HEADER = [
   TABEL_HEADER.status,
   TABEL_HEADER.action,
 ];
+const convertToISODate = (dateString) => {
+  if (!dateString) return "";
+  const parsed = dayjs(dateString, "ddd, D MMM YYYY");
+  return parsed.isValid() ? parsed.format("YYYY-MM-DD") : "";
+};
 
 const Doctors = () => {
   const [term, setTerm] = useState("");
@@ -45,6 +53,10 @@ const Doctors = () => {
       .then((data) => {
         setDoctors(data);
         setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching doctors:", err);
+        setLoading(false);
       });
   }, []);
 
@@ -61,7 +73,15 @@ const Doctors = () => {
       (p) =>
         selectedFilters.status === "All" || p.status === selectedFilters.status,
     )
-    .filter((p) => !selectedFilters.date || p.date === selectedFilters.date);
+    .filter((p) => {
+      if (!selectedFilters.date) return true;
+      const visitDate = convertToISODate(p.joinDate);
+      return visitDate === selectedFilters.date;
+    });
+
+  if (loading) {
+    return <h1>Loading ...</h1>;
+  }
 
   return (
     <Container>
