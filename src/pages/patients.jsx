@@ -44,7 +44,9 @@ const Patients = () => {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/patient`)
+    fetch(
+      `https://raw.githubusercontent.com/ErfuniisM/AfiaTechDataBase/refs/heads/main/data/patient.json`,
+    )
       .then((res) => res.json())
       .then((data) => {
         setPatients(data);

@@ -145,7 +145,9 @@ const Staff = () => {
   const [staff, setStaff] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/staff`)
+    fetch(
+      `https://raw.githubusercontent.com/ErfuniisM/AfiaTechDataBase/refs/heads/main/data/staff.json`,
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

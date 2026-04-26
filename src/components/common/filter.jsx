@@ -1,72 +1,17 @@
-// // Filter.jsx - نسخه نهایی با font-bold text-black برای همه
-
 // import { useState, useRef, useEffect } from "react";
 // import { FILTER_OPTIONS } from "../../constants";
-// import Select from "react-dropdown-select";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 // import dayjs from "dayjs";
 
-// // اضافه کردن استایل به head با استفاده از useEffect
-// const addGlobalStyles = () => {
-//   if (!document.getElementById("filter-styles")) {
-//     const style = document.createElement("style");
-//     style.id = "filter-styles";
-//     style.textContent = `
-//       /* استایل برای react-dropdown-select */
-//       .filter-select .react-dropdown-select {
-//         border: none !important;
-//         background: transparent !important;
-//         box-shadow: none !important;
-//         min-width: 140px !important;
-//         padding: 8px 12px !important;
-//         font-weight: bold !important;
-//         color: black !important;
-//       }
-
-//       .filter-select .react-dropdown-select-placeholder {
-//         font-weight: bold !important;
-//         color: black !important;
-//       }
-
-//       .filter-select .react-dropdown-select-input {
-//         font-weight: bold !important;
-//         color: black !important;
-//       }
-
-//       .filter-select .react-dropdown-select-dropdown-handle {
-//         color: black !important;
-//       }
-
-//       .filter-select .react-dropdown-select-clear {
-//         color: black !important;
-//       }
-
-//       .filter-select .react-dropdown-select-item {
-//         font-weight: bold !important;
-//         color: black !important;
-//       }
-
-//       .filter-select .react-dropdown-select-item.selected {
-//         font-weight: bold !important;
-//         color: black !important;
-//         background-color: #e5e7eb !important;
-//       }
-//     `;
-//     document.head.appendChild(style);
-//   }
-// };
-
 // const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
 //   const [isDateOpen, setIsDateOpen] = useState(false);
+//   const [openDropdown, setOpenDropdown] = useState(null);
 //   const datePickerRef = useRef(null);
+//   const dropdownRefs = useRef({});
+//   // FilterBox Mobile Style
+//   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-//   // اضافه کردن استایل ها
-//   useEffect(() => {
-//     addGlobalStyles();
-//   }, []);
-
-//   // بستن datepicker وقتی خارج از اون کلیک بشه
 //   useEffect(() => {
 //     const handleClickOutside = (event) => {
 //       if (
@@ -75,9 +20,24 @@
 //       ) {
 //         setIsDateOpen(false);
 //       }
+
+//       if (
+//         openDropdown &&
+//         !dropdownRefs.current[openDropdown]?.contains(event.target)
+//       ) {
+//         setOpenDropdown(null);
+//       }
 //     };
 //     document.addEventListener("mousedown", handleClickOutside);
 //     return () => document.removeEventListener("mousedown", handleClickOutside);
+//   }, [openDropdown]);
+
+//   // FilterBox Mobile Style
+//   useEffect(() => {
+//     const handleResize = () => setIsMobile(window.innerWidth < 768);
+//     handleResize(); // برای مقدار اولیه
+//     window.addEventListener("resize", handleResize);
+//     return () => window.removeEventListener("resize", handleResize);
 //   }, []);
 
 //   const getSelectOptions = (item) => {
@@ -122,7 +82,7 @@
 //     return optionsMap[item] || [{ value: "All", label: "All" }];
 //   };
 
-//   const getValue = (item) => {
+//   const getCurrentValue = (item) => {
 //     const valueMap = {
 //       [FILTER_OPTIONS.gender]: selectedFilters.gender,
 //       [FILTER_OPTIONS.status]: selectedFilters.status,
@@ -135,24 +95,32 @@
 //     return valueMap[item] || "All";
 //   };
 
-//   const getOnChange = (item) => {
+//   const getDisplayLabel = (item) => {
+//     const options = getSelectOptions(item);
+//     const currentValue = getCurrentValue(item);
+//     const selected = options.find((opt) => opt.value === currentValue);
+//     return selected?.label || "Select...";
+//   };
+
+//   const handleSelectChange = (item, value) => {
 //     const changeMap = {
 //       [FILTER_OPTIONS.gender]: (val) =>
-//         onFilter((prev) => ({ ...prev, gender: val[0]?.value })),
+//         onFilter((prev) => ({ ...prev, gender: val })),
 //       [FILTER_OPTIONS.status]: (val) =>
-//         onFilter((prev) => ({ ...prev, status: val[0]?.value })),
+//         onFilter((prev) => ({ ...prev, status: val })),
 //       [FILTER_OPTIONS.status2]: (val) =>
-//         onFilter((prev) => ({ ...prev, status: val[0]?.value })),
+//         onFilter((prev) => ({ ...prev, status: val })),
 //       [FILTER_OPTIONS.spec]: (val) =>
-//         onFilter((prev) => ({ ...prev, spec: val[0]?.value })),
+//         onFilter((prev) => ({ ...prev, spec: val })),
 //       [FILTER_OPTIONS.depart]: (val) =>
-//         onFilter((prev) => ({ ...prev, depart: val[0]?.value })),
+//         onFilter((prev) => ({ ...prev, depart: val })),
 //       [FILTER_OPTIONS.ins]: (val) =>
-//         onFilter((prev) => ({ ...prev, ins: val[0]?.value })),
+//         onFilter((prev) => ({ ...prev, ins: val })),
 //       [FILTER_OPTIONS.branch]: (val) =>
-//         onFilter((prev) => ({ ...prev, branch: val[0]?.value })),
+//         onFilter((prev) => ({ ...prev, branch: val })),
 //     };
-//     return changeMap[item] || (() => {});
+//     changeMap[item]?.(value);
+//     setOpenDropdown(null);
 //   };
 
 //   const getDisplayDate = () => {
@@ -165,7 +133,6 @@
 //     : null;
 
 //   const renderField = (item) => {
-//     // فیلتر تاریخ
 //     if (item === FILTER_OPTIONS.date) {
 //       return (
 //         <div className="relative" ref={datePickerRef}>
@@ -175,11 +142,10 @@
 //           >
 //             <span className="font-bold text-black">{getDisplayDate()}</span>
 //             <svg
-//               className={`w-4 h-4 ml-2 transition-transform font-bold text-black ${isDateOpen ? "rotate-180" : ""}`}
+//               className={`w-4 h-4 ml-2 transition-transform ${isDateOpen ? "rotate-180" : ""}`}
 //               fill="none"
-//               stroke="currentColor"
+//               stroke="black"
 //               viewBox="0 0 24 24"
-//               style={{ stroke: "black" }}
 //             >
 //               <path
 //                 strokeLinecap="round"
@@ -214,21 +180,16 @@
 //       );
 //     }
 
-//     // فیلتر زمان
 //     if (item === FILTER_OPTIONS.time) {
 //       return (
 //         <div className="relative">
-//           <button
-//             onClick={() => {}}
-//             className="px-3 py-2 text-sm min-w-[140px] bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black"
-//           >
+//           <button className="px-3 py-2 text-sm min-w-[140px] bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black">
 //             <span className="font-bold text-black">Select Time</span>
 //             <svg
-//               className="w-4 h-4 ml-2 font-bold text-black"
+//               className="w-4 h-4 ml-2"
 //               fill="none"
-//               stroke="currentColor"
+//               stroke="black"
 //               viewBox="0 0 24 24"
-//               style={{ stroke: "black" }}
 //             >
 //               <path
 //                 strokeLinecap="round"
@@ -242,7 +203,6 @@
 //       );
 //     }
 
-//     // بقیه فیلترها با react-dropdown-select
 //     if (
 //       [
 //         FILTER_OPTIONS.gender,
@@ -255,24 +215,52 @@
 //       ].includes(item)
 //     ) {
 //       const options = getSelectOptions(item);
-//       const currentValue = getValue(item);
-//       const selectedOption = options.find((opt) => opt.value === currentValue);
+//       const displayLabel = getDisplayLabel(item);
+//       const isOpen = openDropdown === item;
 
 //       return (
-//         <Select
-//           options={options}
-//           values={selectedOption ? [selectedOption] : []}
-//           onChange={getOnChange(item)}
-//           placeholder="Select..."
-//           className="min-w-[140px] filter-select"
-//           searchable={false}
-//           clearable={false}
-//           style={{
-//             border: "none",
-//             background: "transparent",
-//             boxShadow: "none",
-//           }}
-//         />
+//         <div
+//           className="relative"
+//           ref={(el) => (dropdownRefs.current[item] = el)}
+//         >
+//           <button
+//             onClick={() => setOpenDropdown(isOpen ? null : item)}
+//             className="px-3 py-2 text-sm min-w-[140px] bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black"
+//           >
+//             <span className="font-bold text-black">{displayLabel}</span>
+//             <svg
+//               className={`w-4 h-4 ml-2 transition-transform ${isOpen ? "rotate-180" : ""}`}
+//               fill="none"
+//               stroke="black"
+//               viewBox="0 0 24 24"
+//             >
+//               <path
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//                 strokeWidth={2}
+//                 d="M19 9l-7 7-7-7"
+//               />
+//             </svg>
+//           </button>
+
+//           {isOpen && (
+//             <div className="absolute z-50 mt-1 bg-white border border-gray-200 rounded-md shadow-lg min-w-[160px]">
+//               {options.map((opt) => (
+//                 <button
+//                   key={opt.value}
+//                   onClick={() => handleSelectChange(item, opt.value)}
+//                   className={`w-full px-4 py-2 text-sm text-left hover:bg-gray-100 ${
+//                     getCurrentValue(item) === opt.value
+//                       ? "bg-gray-100 font-bold"
+//                       : ""
+//                   }`}
+//                 >
+//                   {opt.label}
+//                 </button>
+//               ))}
+//             </div>
+//           )}
+//         </div>
 //       );
 //     }
 
@@ -280,16 +268,23 @@
 //   };
 
 //   return (
-//     <div className="flex items-center justify-around shadow-sm text-black bg-white w-full rounded-[10px] p-3">
-//       <div className="flex items-center">
-//         <span className="font-bold text-black">Filter By</span>
+//     <div className="flex items-center justify-around shadow-sm text-black bg-white w-full rounded-[10px] p-0 h-full">
+//       <div className="flex flex-row items-center h-full px-[20px] py-0 border-r-1 border-gray-300">
+//         <img src="../../../public/icons/body/Filter.svg" />
+//         <span className="text-sm font-semibold text-gray-700">Filter By</span>
 //       </div>
-//       <div className="flex items-center gap-3">
+//       <div className="flex items-center gap-3 h-full">
 //         {items.map((item) => (
-//           <div key={item}>{renderField(item)}</div>
+//           <div
+//             className="flex items-center h-full border-r-1 border-gray-300"
+//             key={item}
+//           >
+//             {renderField(item)}
+//           </div>
 //         ))}
 //       </div>
-//       <div className="flex items-center">
+//       <div className="flex items-center h-full px-[20px] py-0">
+//         <img src="../../../public/icons/body/Reset-Filter.svg" />
 //         <button
 //           onClick={onReset}
 //           className="font-bold px-3 py-2 text-red-600 rounded-lg text-sm transition cursor-pointer hover:bg-red-50"
@@ -303,8 +298,6 @@
 
 // export default Filter;
 
-// Filter.jsx - نسخه با dropdown سفارشی برای همه فیلترها
-
 import { useState, useRef, useEffect } from "react";
 import { FILTER_OPTIONS } from "../../constants";
 import DatePicker from "react-datepicker";
@@ -313,21 +306,30 @@ import dayjs from "dayjs";
 
 const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
   const [isDateOpen, setIsDateOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null); // برای مدیریت dropdown های مختلف
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const datePickerRef = useRef(null);
   const dropdownRefs = useRef({});
 
-  // بستن dropdown ها وقتی خارج کلیک بشه
+  // تشخیص سایز صفحه برای ریسپانسیو
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // مدیریت کلیک بیرون برای بستن dropdownها
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // بستن datepicker
       if (
         datePickerRef.current &&
         !datePickerRef.current.contains(event.target)
       ) {
         setIsDateOpen(false);
       }
-      // بستن سایر dropdown ها
+
       if (
         openDropdown &&
         !dropdownRefs.current[openDropdown]?.contains(event.target)
@@ -338,6 +340,20 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [openDropdown]);
+
+  // شمارش فیلترهای فعال
+  const getActiveFiltersCount = () => {
+    let count = 0;
+    if (selectedFilters.date) count++;
+    if (selectedFilters.time) count++;
+    if (selectedFilters.gender && selectedFilters.gender !== "All") count++;
+    if (selectedFilters.status && selectedFilters.status !== "All") count++;
+    if (selectedFilters.spec && selectedFilters.spec !== "All") count++;
+    if (selectedFilters.depart && selectedFilters.depart !== "All") count++;
+    if (selectedFilters.ins && selectedFilters.ins !== "All") count++;
+    if (selectedFilters.branch && selectedFilters.branch !== "All") count++;
+    return count;
+  };
 
   const getSelectOptions = (item) => {
     const optionsMap = {
@@ -401,6 +417,11 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
     return selected?.label || "Select...";
   };
 
+  const getDisplayDate = () => {
+    if (!selectedFilters.date) return "Select Date";
+    return selectedFilters.date;
+  };
+
   const handleSelectChange = (item, value) => {
     const changeMap = {
       [FILTER_OPTIONS.gender]: (val) =>
@@ -420,11 +441,11 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
     };
     changeMap[item]?.(value);
     setOpenDropdown(null);
-  };
 
-  const getDisplayDate = () => {
-    if (!selectedFilters.date) return "Select Date";
-    return selectedFilters.date;
+    // بستن منوی موبایل بعد از انتخاب
+    if (isMobile) {
+      setIsFilterMenuOpen(false);
+    }
   };
 
   const selectedDate = selectedFilters.date
@@ -432,13 +453,12 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
     : null;
 
   const renderField = (item) => {
-    // فیلتر تاریخ
     if (item === FILTER_OPTIONS.date) {
       return (
-        <div className="relative" ref={datePickerRef}>
+        <div className="relative w-full" ref={datePickerRef}>
           <button
             onClick={() => setIsDateOpen(!isDateOpen)}
-            className="px-3 py-2 text-sm min-w-[140px] bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black"
+            className="w-full px-3 py-2 text-sm bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black"
           >
             <span className="font-bold text-black">{getDisplayDate()}</span>
             <svg
@@ -457,7 +477,7 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
           </button>
 
           {isDateOpen && (
-            <div className="absolute z-50 mt-1" style={{ left: 0 }}>
+            <div className="absolute z-50 mt-1 left-0 right-0 sm:right-auto">
               <DatePicker
                 selected={selectedDate}
                 onChange={(date) => {
@@ -466,6 +486,11 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
                     : "";
                   onFilter((prev) => ({ ...prev, date: formattedDate }));
                   setIsDateOpen(false);
+
+                  // بستن منوی موبایل بعد از انتخاب تاریخ
+                  if (isMobile) {
+                    setIsFilterMenuOpen(false);
+                  }
                 }}
                 onClickOutside={() => setIsDateOpen(false)}
                 open={isDateOpen}
@@ -480,11 +505,10 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
       );
     }
 
-    // فیلتر زمان
     if (item === FILTER_OPTIONS.time) {
       return (
-        <div className="relative">
-          <button className="px-3 py-2 text-sm min-w-[140px] bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black">
+        <div className="relative w-full">
+          <button className="w-full px-3 py-2 text-sm bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black">
             <span className="font-bold text-black">Select Time</span>
             <svg
               className="w-4 h-4 ml-2"
@@ -504,7 +528,6 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
       );
     }
 
-    // سایر فیلترها (dropdown سفارشی)
     if (
       [
         FILTER_OPTIONS.gender,
@@ -519,15 +542,16 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
       const options = getSelectOptions(item);
       const displayLabel = getDisplayLabel(item);
       const isOpen = openDropdown === item;
+      const currentValue = getCurrentValue(item);
 
       return (
         <div
-          className="relative"
+          className="relative w-full"
           ref={(el) => (dropdownRefs.current[item] = el)}
         >
           <button
             onClick={() => setOpenDropdown(isOpen ? null : item)}
-            className="px-3 py-2 text-sm min-w-[140px] bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black"
+            className="w-full px-3 py-2 text-sm bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black"
           >
             <span className="font-bold text-black">{displayLabel}</span>
             <svg
@@ -552,9 +576,7 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
                   key={opt.value}
                   onClick={() => handleSelectChange(item, opt.value)}
                   className={`w-full px-4 py-2 text-sm text-left hover:bg-gray-100 ${
-                    getCurrentValue(item) === opt.value
-                      ? "bg-gray-100 font-bold"
-                      : ""
+                    currentValue === opt.value ? "bg-gray-100 font-bold" : ""
                   }`}
                 >
                   {opt.label}
@@ -569,25 +591,124 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
     return null;
   };
 
+  // گرفتن عنوان فارسی/انگلیسی فیلتر
+  const getFilterLabel = (item) => {
+    const labels = {
+      [FILTER_OPTIONS.date]: "Date",
+      [FILTER_OPTIONS.time]: "Time",
+      [FILTER_OPTIONS.gender]: "Gender",
+      [FILTER_OPTIONS.status]: "Status",
+      [FILTER_OPTIONS.spec]: "Specialty",
+      [FILTER_OPTIONS.depart]: "Department",
+      [FILTER_OPTIONS.ins]: "Insurance",
+      [FILTER_OPTIONS.branch]: "Branch",
+    };
+    return labels[item] || item;
+  };
+
   return (
-    <div className="flex items-center justify-around shadow-sm text-black bg-white w-full rounded-[10px] p-3">
-      <div className="flex items-center">
-        <span className="text-md font-semibold text-gray-700">Filter By</span>
-      </div>
-      <div className="flex items-center gap-3">
-        {items.map((item) => (
-          <div key={item}>{renderField(item)}</div>
-        ))}
-      </div>
-      <div className="flex items-center">
-        <button
-          onClick={onReset}
-          className="font-bold px-3 py-2 text-red-600 rounded-lg text-sm transition cursor-pointer hover:bg-red-50"
-        >
-          Reset Filter
-        </button>
-      </div>
-    </div>
+    <>
+      {/* ==================== نسخه دسکتاپ ==================== */}
+      {!isMobile && (
+        <div className="flex items-center justify-around shadow-sm text-black bg-white w-full rounded-[10px] p-0 h-full">
+          <div className="flex items-center h-full px-[20px] py-0 border-r border-gray-300">
+            <img src="../../../public/icons/body/Filter.svg" alt="filter" />
+            <span className="text-sm font-semibold text-gray-700 mr-2">
+              Filter By
+            </span>
+          </div>
+          <div className="flex items-center gap-3 h-full">
+            {items.map((item) => (
+              <div
+                className="flex items-center h-full border-r border-gray-300 last:border-r-0"
+                key={item}
+              >
+                {renderField(item)}
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center h-full px-[20px] py-0">
+            <img
+              src="../../../public/icons/body/Reset-Filter.svg"
+              alt="reset"
+            />
+            <button
+              onClick={onReset}
+              className="font-bold px-3 py-2 text-red-600 rounded-lg text-sm transition cursor-pointer hover:bg-red-50"
+            >
+              Reset Filter
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ==================== نسخه موبایل ==================== */}
+      {isMobile && (
+        <div className="relative w-full">
+          {/* دکمه فیلتر */}
+          <button
+            onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
+            className="w-full flex items-center justify-between bg-white shadow-sm rounded-[10px] px-4 py-3 transition-all"
+          >
+            <div className="flex items-center gap-2">
+              <img
+                src="../../../public/icons/body/Filter.svg"
+                alt="filter"
+                className="w-5 h-5"
+              />
+              <span className="font-semibold text-gray-700">Filter</span>
+              {getActiveFiltersCount() > 0 && (
+                <span className="bg-emerald-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {getActiveFiltersCount()}
+                </span>
+              )}
+            </div>
+            <svg
+              className={`w-4 h-4 transition-transform duration-200 ${
+                isFilterMenuOpen ? "rotate-180" : ""
+              }`}
+              fill="none"
+              stroke="black"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+
+          {/* منوی کشویی فیلترها */}
+          {isFilterMenuOpen && (
+            <div className="mt-2 mb-4 bg-white shadow-lg rounded-[10px] border border-gray-200">
+              <div className="divide-y divide-gray-100">
+                {items.map((item) => (
+                  <div key={item} className="p-4">
+                    <div className="text-xs text-gray-500 mb-2">
+                      {getFilterLabel(item)}
+                    </div>
+                    {renderField(item)}
+                  </div>
+                ))}
+                <div className="p-4">
+                  <button
+                    onClick={() => {
+                      onReset();
+                      setIsFilterMenuOpen(false);
+                    }}
+                    className="w-full text-center text-red-600 font-bold py-2 hover:bg-red-50 rounded-lg transition"
+                  >
+                    Reset Filter
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 

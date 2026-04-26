@@ -28,7 +28,9 @@ const Phatmacies = () => {
   const [phatmacies, setPhatmacies] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/phatmacies`)
+    fetch(
+      `https://raw.githubusercontent.com/ErfuniisM/AfiaTechDataBase/refs/heads/main/data/phatmacies.json`,
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

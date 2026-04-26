@@ -4,7 +4,6 @@ import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import TableList from "../components/common/tabelList";
 import { TABEL_HEADER } from "../constants";
-// import { DASHBOARD_ITEMS } from "../constants/database";
 
 const APPOINTNET_TABEL_HEADER = [
   TABEL_HEADER.national,
@@ -20,35 +19,28 @@ const TOTAL_CARD_DATA = [
 
     amount: "40689",
 
-    amount: "400000",
-
-    color: "bg-amber-600",
+    icon: "../../../public/icons/body/Total-Patient.svg",
   },
   {
     name: "Total Appointments",
 
     amount: "10293",
 
-    amount: "400000",
-
-    color: "bg-amber-300",
+    icon: "../../../public/icons/body/Total-Appointments.svg",
   },
   {
     name: "Total Sales",
 
     amount: "8900",
 
-    amount: "400000",
-
-    color: "bg-amber-400",
+    icon: "../../../public/icons/body/Total-Sales.svg",
   },
   {
     name: "Total Pending",
 
     amount: "2040",
 
-    amount: "400000",
-    color: "bg-amber-400",
+    icon: "../../../public/icons/body/Total-Pending.svg",
   },
 ];
 
@@ -57,7 +49,9 @@ const Dashboard = () => {
   const [dashboard, setDashboard] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/dashboard`)
+    fetch(
+      `https://raw.githubusercontent.com/ErfuniisM/AfiaTechDataBase/refs/heads/main/data/dashboard.json`,
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -76,13 +70,13 @@ const Dashboard = () => {
   return (
     <Container>
       <Content title="Dashboard">
-        <div className="flex flex-row gap-6 justify-center">
+        <div className="flex flex-col sm:flex-row gap-6 justify-center">
           {TOTAL_CARD_DATA.map((item) => (
             <Totalcards
               key={item.name}
               total_name={item.name}
               total_amount={item.amount}
-              bg_color={item.color}
+              total_icon={item.icon}
             />
           ))}
         </div>

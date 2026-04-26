@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-// dayjs
 import dayjs from "dayjs";
-// customParseFormat
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import TabelList from "../components/common/tabelList";
 import Toolbox from "../components/common/toolBox";
@@ -10,10 +8,8 @@ import Content from "../components/layout/content";
 import { FILTER_OPTIONS, TABEL_HEADER } from "../constants";
 import AppointmentModal from "./modals/appointmentModal";
 
-// Custom Date Formater
 dayjs.extend(customParseFormat);
 
-//  Date Format Converter
 const convertToISODate = (dateString) => {
   if (!dateString) return "";
   const parsed = dayjs(dateString, "ddd, D MMM YYYY");
@@ -25,6 +21,7 @@ const APPOINTNET_FILTER_OPTIONS = [
   FILTER_OPTIONS.time,
   FILTER_OPTIONS.status,
 ];
+
 const APPOINTNET_TABEL_HEADER = [
   TABEL_HEADER.national,
   TABEL_HEADER.patient,
@@ -46,7 +43,9 @@ const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/appointments`)
+    fetch(
+      `https://raw.githubusercontent.com/ErfuniisM/AfiaTechDataBase/refs/heads/main/data/appointments.json`,
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -56,6 +55,10 @@ const Appointments = () => {
       .then((data) => {
         setAppointments(data);
         setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching appointments:", error);
+        setLoading(false);
       });
   }, []);
 
@@ -63,7 +66,9 @@ const Appointments = () => {
     .filter((appt) => {
       const patient = appt.patient?.toLowerCase() ?? "";
       const t = term.toLowerCase();
-      return patient.startsWith(t) || appt.national.toString().startsWith(term);
+      return (
+        patient.startsWith(t) || appt.national?.toString().startsWith(term)
+      );
     })
     .filter(
       (p) =>
@@ -71,13 +76,23 @@ const Appointments = () => {
     )
     .filter((p) => {
       if (!selectedFilters.date) return true;
-      const visitDate = convertToISODate(p.date); // ✅ درست: استفاده از p.date
+      const visitDate = convertToISODate(p.date);
       return visitDate === selectedFilters.date;
     });
 
   if (loading) {
-    return <h1>Loading ...</h1>;
+    return (
+      <Container>
+        <div className="flex justify-center items-center h-64">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+          </div>
+        </div>
+      </Container>
+    );
   }
+
   return (
     <Container>
       <Content
@@ -100,10 +115,17 @@ const Appointments = () => {
           selectedFilters={selectedFilters}
           filters={APPOINTNET_FILTER_OPTIONS}
         />
-        <TabelList
-          header={APPOINTNET_TABEL_HEADER}
-          body={SEARCHED_APPOINTMENTS}
-        />
+
+        <div className="mt-4 sm:mt-6">
+          <TabelList
+            header={APPOINTNET_TABEL_HEADER}
+            body={SEARCHED_APPOINTMENTS}
+            itemsPerPage={8}
+            onActionClick={(action, row) => {
+              console.log(action, row);
+            }}
+          />
+        </div>
       </Content>
     </Container>
   );

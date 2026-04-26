@@ -13,7 +13,6 @@ const Schedule = () => {
         title="Schedule"
         buttonTitle="Add a Time Block"
       ></Content>
-      <DoctorSchedule />
     </Container>
   );
 };
