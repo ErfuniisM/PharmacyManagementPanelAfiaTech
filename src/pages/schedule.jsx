@@ -1,8 +1,7 @@
-// import Appoinments_list from "../components/common/appoinments_list";
-import DoctorSchedule from "../components/common/doctorSchedule";
-import Toolbox from "../components/common/toolBox";
+import CalendarTable from "../components/common/CalendarTable";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
+import CalendarTableModal from "./modals/calendarTableModal";
 import ScheduleModal from "./modals/scheduleModal";
 
 const Schedule = () => {
@@ -12,7 +11,9 @@ const Schedule = () => {
         modal={<ScheduleModal />}
         title="Schedule"
         buttonTitle="Add a Time Block"
-      ></Content>
+      >
+        <CalendarTable />
+      </Content>
     </Container>
   );
 };

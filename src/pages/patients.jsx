@@ -93,6 +93,7 @@ const Patients = () => {
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          SearchPlaceholder="Search Patients"
           onReset={() =>
             setSelectedFilters({
               gender: "All",

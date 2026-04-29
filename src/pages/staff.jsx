@@ -196,6 +196,7 @@ const Staff = () => {
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          SearchPlaceholder="Search Staff"
           onReset={() =>
             setSelectedFilters({
               depart: "All",

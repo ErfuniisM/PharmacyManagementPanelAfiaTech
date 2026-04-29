@@ -17,7 +17,7 @@ const DoctorsModal = ({ onClose }) => {
         <form className="flex h-full flex-col justify-between">
           <div className="flex flex-col gap-4">
             <h4 className="font-bold">Request a Doctor</h4>
-            <SearchBox />
+            <SearchBox SearchPlaceholder="Search Doctor" />
           </div>
           <button
             type="submit"

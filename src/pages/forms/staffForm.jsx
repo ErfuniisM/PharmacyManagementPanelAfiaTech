@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { useForm } from "react-hook-form";
-import dayjs from "dayjs";
+import React, { useState } from "react";
 
 function sleep(ms) {
   return new Promise((resolver) => setTimeout(resolver, ms));
@@ -25,6 +25,8 @@ const StaffForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(schema) });
+  const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+
   return (
     <form
       onSubmit={handleSubmit(async (data) => await onSubmit(data))}
@@ -98,6 +100,20 @@ const StaffForm = () => {
             </div>
           </div>
         </fieldset>
+        <div className="flex flex-col gap-5 mt-4 pt-2 ">
+          <span className="text-sm font-bold text-gray-700">Staff</span>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={showAdditionalFields}
+              onChange={(e) => setShowAdditionalFields(e.target.checked)}
+              className="w-5 h-5 text-red-500 rounded focus:ring-red-500"
+            />
+            <span className="text-sm font-bold text-gray-700">
+              Is this member currently active?{" "}
+            </span>
+          </label>
+        </div>
       </div>
 
       <button

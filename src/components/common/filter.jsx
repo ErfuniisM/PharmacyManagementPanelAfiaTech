@@ -1,303 +1,3 @@
-// import { useState, useRef, useEffect } from "react";
-// import { FILTER_OPTIONS } from "../../constants";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-// import dayjs from "dayjs";
-
-// const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
-//   const [isDateOpen, setIsDateOpen] = useState(false);
-//   const [openDropdown, setOpenDropdown] = useState(null);
-//   const datePickerRef = useRef(null);
-//   const dropdownRefs = useRef({});
-//   // FilterBox Mobile Style
-//   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-//   useEffect(() => {
-//     const handleClickOutside = (event) => {
-//       if (
-//         datePickerRef.current &&
-//         !datePickerRef.current.contains(event.target)
-//       ) {
-//         setIsDateOpen(false);
-//       }
-
-//       if (
-//         openDropdown &&
-//         !dropdownRefs.current[openDropdown]?.contains(event.target)
-//       ) {
-//         setOpenDropdown(null);
-//       }
-//     };
-//     document.addEventListener("mousedown", handleClickOutside);
-//     return () => document.removeEventListener("mousedown", handleClickOutside);
-//   }, [openDropdown]);
-
-//   // FilterBox Mobile Style
-//   useEffect(() => {
-//     const handleResize = () => setIsMobile(window.innerWidth < 768);
-//     handleResize(); // برای مقدار اولیه
-//     window.addEventListener("resize", handleResize);
-//     return () => window.removeEventListener("resize", handleResize);
-//   }, []);
-
-//   const getSelectOptions = (item) => {
-//     const optionsMap = {
-//       [FILTER_OPTIONS.gender]: [
-//         { value: "All", label: "All Genders" },
-//         { value: "Male", label: "Male" },
-//         { value: "Female", label: "Female" },
-//       ],
-//       [FILTER_OPTIONS.status]: [
-//         { value: "All", label: "All Status" },
-//         { value: "Completed", label: "Completed" },
-//         { value: "Pending", label: "Pending" },
-//       ],
-//       [FILTER_OPTIONS.status2]: [
-//         { value: "All", label: "All Status" },
-//         { value: "Active", label: "Active" },
-//         { value: "Inactive", label: "Inactive" },
-//       ],
-//       [FILTER_OPTIONS.spec]: [
-//         { value: "All", label: "All Specialties" },
-//         { value: "Cardiology", label: "Cardiology" },
-//         { value: "Dematology", label: "Dematology" },
-//       ],
-//       [FILTER_OPTIONS.depart]: [
-//         { value: "All", label: "All Departments" },
-//         { value: "Cardiology", label: "Cardiology" },
-//         { value: "Dematology", label: "Dematology" },
-//       ],
-//       [FILTER_OPTIONS.ins]: [
-//         { value: "All", label: "All Insurance" },
-//         { value: "Covered", label: "Covered" },
-//         { value: "Not Covered", label: "Not Covered" },
-//       ],
-//       [FILTER_OPTIONS.branch]: [
-//         { value: "All", label: "All Branches" },
-//         { value: "Riyadh", label: "Riyadh" },
-//         { value: "Jeddah", label: "Jeddah" },
-//         { value: "Median", label: "Median" },
-//       ],
-//     };
-//     return optionsMap[item] || [{ value: "All", label: "All" }];
-//   };
-
-//   const getCurrentValue = (item) => {
-//     const valueMap = {
-//       [FILTER_OPTIONS.gender]: selectedFilters.gender,
-//       [FILTER_OPTIONS.status]: selectedFilters.status,
-//       [FILTER_OPTIONS.status2]: selectedFilters.status,
-//       [FILTER_OPTIONS.spec]: selectedFilters.spec,
-//       [FILTER_OPTIONS.depart]: selectedFilters.depart,
-//       [FILTER_OPTIONS.ins]: selectedFilters.ins,
-//       [FILTER_OPTIONS.branch]: selectedFilters.branch,
-//     };
-//     return valueMap[item] || "All";
-//   };
-
-//   const getDisplayLabel = (item) => {
-//     const options = getSelectOptions(item);
-//     const currentValue = getCurrentValue(item);
-//     const selected = options.find((opt) => opt.value === currentValue);
-//     return selected?.label || "Select...";
-//   };
-
-//   const handleSelectChange = (item, value) => {
-//     const changeMap = {
-//       [FILTER_OPTIONS.gender]: (val) =>
-//         onFilter((prev) => ({ ...prev, gender: val })),
-//       [FILTER_OPTIONS.status]: (val) =>
-//         onFilter((prev) => ({ ...prev, status: val })),
-//       [FILTER_OPTIONS.status2]: (val) =>
-//         onFilter((prev) => ({ ...prev, status: val })),
-//       [FILTER_OPTIONS.spec]: (val) =>
-//         onFilter((prev) => ({ ...prev, spec: val })),
-//       [FILTER_OPTIONS.depart]: (val) =>
-//         onFilter((prev) => ({ ...prev, depart: val })),
-//       [FILTER_OPTIONS.ins]: (val) =>
-//         onFilter((prev) => ({ ...prev, ins: val })),
-//       [FILTER_OPTIONS.branch]: (val) =>
-//         onFilter((prev) => ({ ...prev, branch: val })),
-//     };
-//     changeMap[item]?.(value);
-//     setOpenDropdown(null);
-//   };
-
-//   const getDisplayDate = () => {
-//     if (!selectedFilters.date) return "Select Date";
-//     return selectedFilters.date;
-//   };
-
-//   const selectedDate = selectedFilters.date
-//     ? new Date(selectedFilters.date)
-//     : null;
-
-//   const renderField = (item) => {
-//     if (item === FILTER_OPTIONS.date) {
-//       return (
-//         <div className="relative" ref={datePickerRef}>
-//           <button
-//             onClick={() => setIsDateOpen(!isDateOpen)}
-//             className="px-3 py-2 text-sm min-w-[140px] bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black"
-//           >
-//             <span className="font-bold text-black">{getDisplayDate()}</span>
-//             <svg
-//               className={`w-4 h-4 ml-2 transition-transform ${isDateOpen ? "rotate-180" : ""}`}
-//               fill="none"
-//               stroke="black"
-//               viewBox="0 0 24 24"
-//             >
-//               <path
-//                 strokeLinecap="round"
-//                 strokeLinejoin="round"
-//                 strokeWidth={2}
-//                 d="M19 9l-7 7-7-7"
-//               />
-//             </svg>
-//           </button>
-
-//           {isDateOpen && (
-//             <div className="absolute z-50 mt-1" style={{ left: 0 }}>
-//               <DatePicker
-//                 selected={selectedDate}
-//                 onChange={(date) => {
-//                   const formattedDate = date
-//                     ? dayjs(date).format("YYYY-MM-DD")
-//                     : "";
-//                   onFilter((prev) => ({ ...prev, date: formattedDate }));
-//                   setIsDateOpen(false);
-//                 }}
-//                 onClickOutside={() => setIsDateOpen(false)}
-//                 open={isDateOpen}
-//                 inline
-//                 showYearDropdown
-//                 showMonthDropdown
-//                 dropdownMode="select"
-//               />
-//             </div>
-//           )}
-//         </div>
-//       );
-//     }
-
-//     if (item === FILTER_OPTIONS.time) {
-//       return (
-//         <div className="relative">
-//           <button className="px-3 py-2 text-sm min-w-[140px] bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black">
-//             <span className="font-bold text-black">Select Time</span>
-//             <svg
-//               className="w-4 h-4 ml-2"
-//               fill="none"
-//               stroke="black"
-//               viewBox="0 0 24 24"
-//             >
-//               <path
-//                 strokeLinecap="round"
-//                 strokeLinejoin="round"
-//                 strokeWidth={2}
-//                 d="M19 9l-7 7-7-7"
-//               />
-//             </svg>
-//           </button>
-//         </div>
-//       );
-//     }
-
-//     if (
-//       [
-//         FILTER_OPTIONS.gender,
-//         FILTER_OPTIONS.status,
-//         FILTER_OPTIONS.status2,
-//         FILTER_OPTIONS.spec,
-//         FILTER_OPTIONS.depart,
-//         FILTER_OPTIONS.ins,
-//         FILTER_OPTIONS.branch,
-//       ].includes(item)
-//     ) {
-//       const options = getSelectOptions(item);
-//       const displayLabel = getDisplayLabel(item);
-//       const isOpen = openDropdown === item;
-
-//       return (
-//         <div
-//           className="relative"
-//           ref={(el) => (dropdownRefs.current[item] = el)}
-//         >
-//           <button
-//             onClick={() => setOpenDropdown(isOpen ? null : item)}
-//             className="px-3 py-2 text-sm min-w-[140px] bg-transparent focus:outline-none text-left flex items-center justify-between font-bold text-black"
-//           >
-//             <span className="font-bold text-black">{displayLabel}</span>
-//             <svg
-//               className={`w-4 h-4 ml-2 transition-transform ${isOpen ? "rotate-180" : ""}`}
-//               fill="none"
-//               stroke="black"
-//               viewBox="0 0 24 24"
-//             >
-//               <path
-//                 strokeLinecap="round"
-//                 strokeLinejoin="round"
-//                 strokeWidth={2}
-//                 d="M19 9l-7 7-7-7"
-//               />
-//             </svg>
-//           </button>
-
-//           {isOpen && (
-//             <div className="absolute z-50 mt-1 bg-white border border-gray-200 rounded-md shadow-lg min-w-[160px]">
-//               {options.map((opt) => (
-//                 <button
-//                   key={opt.value}
-//                   onClick={() => handleSelectChange(item, opt.value)}
-//                   className={`w-full px-4 py-2 text-sm text-left hover:bg-gray-100 ${
-//                     getCurrentValue(item) === opt.value
-//                       ? "bg-gray-100 font-bold"
-//                       : ""
-//                   }`}
-//                 >
-//                   {opt.label}
-//                 </button>
-//               ))}
-//             </div>
-//           )}
-//         </div>
-//       );
-//     }
-
-//     return null;
-//   };
-
-//   return (
-//     <div className="flex items-center justify-around shadow-sm text-black bg-white w-full rounded-[10px] p-0 h-full">
-//       <div className="flex flex-row items-center h-full px-[20px] py-0 border-r-1 border-gray-300">
-//         <img src="../../../public/icons/body/Filter.svg" />
-//         <span className="text-sm font-semibold text-gray-700">Filter By</span>
-//       </div>
-//       <div className="flex items-center gap-3 h-full">
-//         {items.map((item) => (
-//           <div
-//             className="flex items-center h-full border-r-1 border-gray-300"
-//             key={item}
-//           >
-//             {renderField(item)}
-//           </div>
-//         ))}
-//       </div>
-//       <div className="flex items-center h-full px-[20px] py-0">
-//         <img src="../../../public/icons/body/Reset-Filter.svg" />
-//         <button
-//           onClick={onReset}
-//           className="font-bold px-3 py-2 text-red-600 rounded-lg text-sm transition cursor-pointer hover:bg-red-50"
-//         >
-//           Reset Filter
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Filter;
-
 import { useState, useRef, useEffect } from "react";
 import { FILTER_OPTIONS } from "../../constants";
 import DatePicker from "react-datepicker";
@@ -312,7 +12,6 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
   const datePickerRef = useRef(null);
   const dropdownRefs = useRef({});
 
-  // تشخیص سایز صفحه برای ریسپانسیو
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
@@ -320,7 +19,6 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // مدیریت کلیک بیرون برای بستن dropdownها
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -341,7 +39,6 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [openDropdown]);
 
-  // شمارش فیلترهای فعال
   const getActiveFiltersCount = () => {
     let count = 0;
     if (selectedFilters.date) count++;
@@ -442,7 +139,6 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
     changeMap[item]?.(value);
     setOpenDropdown(null);
 
-    // بستن منوی موبایل بعد از انتخاب
     if (isMobile) {
       setIsFilterMenuOpen(false);
     }
@@ -591,7 +287,6 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
     return null;
   };
 
-  // گرفتن عنوان فارسی/انگلیسی فیلتر
   const getFilterLabel = (item) => {
     const labels = {
       [FILTER_OPTIONS.date]: "Date",
@@ -608,7 +303,6 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
 
   return (
     <>
-      {/* ==================== نسخه دسکتاپ ==================== */}
       {!isMobile && (
         <div className="flex items-center justify-around shadow-sm text-black bg-white w-full rounded-[10px] p-0 h-full">
           <div className="flex items-center h-full px-[20px] py-0 border-r border-gray-300">
@@ -642,10 +336,8 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
         </div>
       )}
 
-      {/* ==================== نسخه موبایل ==================== */}
       {isMobile && (
         <div className="relative w-full">
-          {/* دکمه فیلتر */}
           <button
             onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
             className="w-full flex items-center justify-between bg-white shadow-sm rounded-[10px] px-4 py-3 transition-all"
@@ -680,7 +372,6 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
             </svg>
           </button>
 
-          {/* منوی کشویی فیلترها */}
           {isFilterMenuOpen && (
             <div className="mt-2 mb-4 bg-white shadow-lg rounded-[10px] border border-gray-200">
               <div className="divide-y divide-gray-100">

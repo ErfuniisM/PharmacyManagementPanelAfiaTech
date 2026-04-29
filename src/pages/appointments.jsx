@@ -105,6 +105,7 @@ const Appointments = () => {
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          SearchPlaceholder="Search Appointment"
           onReset={() =>
             setSelectedFilters({
               date: "",

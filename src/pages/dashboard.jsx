@@ -81,8 +81,12 @@ const Dashboard = () => {
           ))}
         </div>
         <div className="flex flex-col mt-4 gap-4 justify-between h-16">
-          <h3>Appoinment</h3>
-          <TableList header={APPOINTNET_TABEL_HEADER} body={dashboard} />
+          <h3 className="text-1xl font-bold  p-4">Today's Appoinment</h3>
+          <TableList
+            header={APPOINTNET_TABEL_HEADER}
+            body={dashboard}
+            itemsPerPage={6}
+          />
         </div>
       </Content>
     </Container>

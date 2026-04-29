@@ -28,7 +28,13 @@ const schema = z.object({
     .string()
     .min(1, "Mobile Number Is Empty")
     .regex(/^09\d{9}$/, "Invalid Mobile Number"),
+  // اضافه کردن فیلدهای جدید به schema
+  underlyingDisease: z.string().optional(),
+  insuranceType: z.string().optional(),
+  surgeryHistory: z.string().optional(),
+  medications: z.string().optional(),
 });
+
 const PatientForm = () => {
   const {
     register,
@@ -37,6 +43,7 @@ const PatientForm = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -51,7 +58,7 @@ const PatientForm = () => {
           <div className="flex flex-col gap-8 w-full">
             {/* Patient Name */}
             <div className="flex flex-col gap-2">
-              <label class="block text-sm font-bold text-gray-700">
+              <label className="block text-sm font-bold text-gray-700">
                 Patient Name
               </label>
               <input
@@ -67,7 +74,7 @@ const PatientForm = () => {
             </div>
             {/* Email */}
             <div className="flex flex-col gap-2">
-              <label class="block text-sm font-bold text-gray-700">
+              <label className="block text-sm font-bold text-gray-700">
                 Email (Optional)
               </label>
               <input
@@ -83,14 +90,14 @@ const PatientForm = () => {
             </div>
             {/* Gender */}
             <div className="flex flex-col gap-2">
-              <label class="block text-sm font-bold text-gray-700">
+              <label className="block text-sm font-bold text-gray-700">
                 Gender
               </label>
               <select
-                {...register("gender")} // Register select element too
+                {...register("gender")}
                 className="w-full h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
               >
-                <option value="Male">Male</option> {/* Add value attributes */}
+                <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
             </div>
@@ -98,7 +105,7 @@ const PatientForm = () => {
           <div className="flex flex-col gap-8 w-full">
             {/* Phone Number */}
             <div className="flex flex-col gap-2">
-              <label class="block text-sm font-bold text-gray-700">
+              <label className="block text-sm font-bold text-gray-700">
                 Phone Number
               </label>
               <input
@@ -115,7 +122,7 @@ const PatientForm = () => {
 
             {/* NationalID */}
             <div className="flex flex-col gap-2">
-              <label class="block text-sm font-bold text-gray-700">
+              <label className="block text-sm font-bold text-gray-700">
                 National ID
               </label>
               <input
@@ -131,7 +138,7 @@ const PatientForm = () => {
             </div>
             {/* Age */}
             <div className="flex flex-col gap-2">
-              <label class="block text-sm font-bold text-gray-700">
+              <label className="block text-sm font-bold text-gray-700">
                 Age (Optional)
               </label>
               <input
@@ -145,12 +152,86 @@ const PatientForm = () => {
                 </p>
               )}
             </div>
+
+            {/* Insurance */}
           </div>
         </fieldset>
+        <div className="flex flex-col gap-5 mt-4 pt-2 ">
+          <span className="text-sm font-bold text-gray-700">Insurance</span>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={showAdditionalFields}
+              onChange={(e) => setShowAdditionalFields(e.target.checked)}
+              className="w-5 h-5 text-red-500 rounded focus:ring-red-500"
+            />
+            <span className="text-sm font-bold text-gray-700">
+              Does the patient have insurance?
+            </span>
+          </label>
+        </div>
+        {showAdditionalFields && (
+          <div className="grid grid-cols-2 gap-4 mt-4 p-4">
+            <div className="flex flex-col gap-2">
+              <label className="block text-sm font-bold text-gray-700">
+                Company Name
+              </label>
+              <select
+                {...register("insuranceType")}
+                className="w-full h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+              >
+                <option value="Company Name 1">Company Name 1</option>
+                <option value="Company Name 2">Company Name 2</option>
+                <option value="Company Name 3">Company Name 3</option>
+                <option value="Company Name 4">Company Name 4</option>
+              </select>
+            </div>
+
+            {/* Category */}
+            <div className="flex flex-col gap-2">
+              <label className="block text-sm font-bold text-gray-700">
+                Category
+              </label>
+              <select
+                {...register("insuranceType")}
+                className="w-full h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+              >
+                <option value="Category Name 1">Category Name 1</option>
+                <option value="Category Name 2">Category Name 2</option>
+                <option value="Category Name 3">Category Name 3</option>
+                <option value="Category Name 4">Category Name 4</option>
+              </select>
+            </div>
+
+            {/* Insurance ID  */}
+            <div className="flex flex-col gap-2">
+              <label className="block text-sm font-bold text-gray-700">
+                Insurance ID
+              </label>
+              <input
+                {...register("age")}
+                type="text"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+              />
+            </div>
+
+            {/* Insurance expiration */}
+            <div className="flex flex-col gap-2">
+              <label className="block text-sm font-bold text-gray-700">
+                Insurance expiration
+              </label>
+              <input
+                type="date"
+                className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
+              />
+            </div>
+          </div>
+        )}
       </div>
+
       <button
         type="submit"
-        className="w-50 py-2 rounded-md mx-auto  text-white p-[20px] bg-red-500 transition"
+        className="w-50 py-2 rounded-md mx-auto text-white p-[20px] bg-red-500 transition mt-6"
       >
         {isSubmitting ? "Sending" : "Done"}
       </button>

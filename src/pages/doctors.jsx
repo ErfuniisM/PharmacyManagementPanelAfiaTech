@@ -96,6 +96,7 @@ const Doctors = () => {
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          SearchPlaceholder="Search Doctor"
           onReset={() =>
             setSelectedFilters({
               spec: "All",

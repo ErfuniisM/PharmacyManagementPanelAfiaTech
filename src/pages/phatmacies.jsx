@@ -68,6 +68,7 @@ const Phatmacies = () => {
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
+          SearchPlaceholder="Search Pharmacies"
           onReset={() =>
             setSelectedFilters({
               branch: "All",
