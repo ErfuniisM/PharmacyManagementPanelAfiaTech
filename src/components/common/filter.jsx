@@ -183,7 +183,6 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
                   onFilter((prev) => ({ ...prev, date: formattedDate }));
                   setIsDateOpen(false);
 
-                  // بستن منوی موبایل بعد از انتخاب تاریخ
                   if (isMobile) {
                     setIsFilterMenuOpen(false);
                   }
