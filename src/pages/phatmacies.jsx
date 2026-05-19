@@ -1,4 +1,3 @@
-// import Appoinments_list from "../components/common/appoinments_list";
 import { useEffect, useState } from "react";
 import toolBox from "../components/common/Toolbox.jsx";
 import Container from "../components/layout/container";

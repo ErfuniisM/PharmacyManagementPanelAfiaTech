@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Totalcards from "../components/common/totalCards";
+import TotalCards from "../components/common/TotalCards";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import TableList from "../components/common/tabelList";
@@ -72,7 +72,7 @@ const Dashboard = () => {
       <Content title="Dashboard">
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
           {TOTAL_CARD_DATA.map((item) => (
-            <Totalcards
+            <TotalCards
               key={item.name}
               total_name={item.name}
               total_amount={item.amount}
