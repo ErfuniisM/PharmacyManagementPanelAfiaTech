@@ -1,4 +1,4 @@
-const Totalcards = ({ total_name, total_amount, total_icon }) => {
+const TotalCards = ({ total_name, total_amount, total_icon }) => {
   return (
     <div className="flex flex-col shadow-sm gap-4 sm:gap-6 w-full h-full rounded-2xl bg-white p-4 sm:p-5 md:p-[20px] transition-all duration-200 hover:shadow-md">
       <div className="flex items-center w-full justify-between">
@@ -30,4 +30,4 @@ const Totalcards = ({ total_name, total_amount, total_icon }) => {
   );
 };
 
-export default Totalcards;
+export default TotalCards;
