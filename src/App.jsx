@@ -4,7 +4,7 @@ import Appointments from "./pages/appointments";
 import ClinicInfo from "./pages/clinicinfo";
 import Doctors from "./pages/doctors";
 import Patients from "./pages/patients";
-import Phatmacies from "./pages/phatmacies";
+import phatmacies from "./pages/phatmacies";
 import Schedule from "./pages/schedule";
 import Staff from "./pages/staff";
 import Dashboard from "./pages/dashboard";
