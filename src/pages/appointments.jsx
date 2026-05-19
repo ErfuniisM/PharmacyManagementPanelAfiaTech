@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import TabelList from "../components/common/tabelList";
-import Toolbox from "../components/common/toolBox";
+import toolBox from "../components/common/toolBox";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import { FILTER_OPTIONS, TABEL_HEADER } from "../constants";
