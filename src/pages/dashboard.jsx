@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import totalCards from "../components/common/totalCards";
+import TotalCards from "../components/common/totalCards";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import TableList from "../components/common/tabelList";
