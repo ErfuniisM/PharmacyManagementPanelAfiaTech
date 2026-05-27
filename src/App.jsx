@@ -47,22 +47,18 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* مسیر اصلی */}
         <Route path="/" element={<Navigate to="/dashboard" />} />
 
-        {/* صفحات */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/appointments" element={<Appointments />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/staff" element={<Staff />} />
 
-        {/* اصلاح typo */}
         <Route path="/patients" element={<Patients />} />
 
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/clinic-info" element={<ClinicInfo />} />
 
-        {/* اگر route اشتباه وارد شد */}
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </Router>
