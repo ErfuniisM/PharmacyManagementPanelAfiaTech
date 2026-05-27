@@ -1,10 +1,44 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+// import Appointments from "./pages/appointments";
+// import ClinicInfo from "./pages/clinicinfo";
+// import Doctors from "./pages/doctors";
+// import Patients from "./pages/patients";
+// // import phatmacies from "./pages/phatmacies";
+// import Schedule from "./pages/schedule";
+// import Staff from "./pages/staff";
+// import Dashboard from "./pages/dashboard";
+
+// const App = () => {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/dashboard" element={<Dashboard />} />
+//         <Route path="/appointments" element={<Appointments />} />
+//         <Route path="/doctors" element={<Doctors />} />
+//         <Route path="/staff" element={<Staff />} />
+//         <Route path="/ptients" element={<Patients />} />
+//         {/* <Route path="/pharmacies" element={<Phatmacies />} /> */}
+//         <Route path="/schedule" element={<Schedule />} />
+//         <Route path="/clinic-info" element={<ClinicInfo />} />
+//       </Routes>
+//     </Router>
+//   );
+// };
+
+// export default App;
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import Appointments from "./pages/appointments";
 import ClinicInfo from "./pages/clinicinfo";
 import Doctors from "./pages/doctors";
 import Patients from "./pages/patients";
-// import phatmacies from "./pages/phatmacies";
 import Schedule from "./pages/schedule";
 import Staff from "./pages/staff";
 import Dashboard from "./pages/dashboard";
@@ -13,14 +47,23 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        {/* مسیر اصلی */}
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+
+        {/* صفحات */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/appointments" element={<Appointments />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/staff" element={<Staff />} />
-        <Route path="/ptients" element={<Patients />} />
-        {/* <Route path="/pharmacies" element={<Phatmacies />} /> */}
+
+        {/* اصلاح typo */}
+        <Route path="/patients" element={<Patients />} />
+
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/clinic-info" element={<ClinicInfo />} />
+
+        {/* اگر route اشتباه وارد شد */}
+        <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </Router>
   );
