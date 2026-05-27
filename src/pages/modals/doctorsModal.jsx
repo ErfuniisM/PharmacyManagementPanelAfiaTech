@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import SearchBox from "../../components/common/searchBox";
+import SearchBox from "../../components/common/SearchBox";
 
 const DoctorsModal = ({ onClose }) => {
   const [step, setStep] = useState(1);
