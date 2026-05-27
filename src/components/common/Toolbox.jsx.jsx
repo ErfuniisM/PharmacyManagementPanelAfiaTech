@@ -1,5 +1,5 @@
 import Filter from "./filter";
-import SearchBox from "./searchbox";
+import SearchBox from "./SearchBox";
 
 const Toolbox = ({
   filters,
