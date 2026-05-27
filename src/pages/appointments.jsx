@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import TabelList from "../components/common/tabelList";
-import toolBox from "../components/common/Toolbox.jsx";
-import Container from "../components/layout/container";
-import Content from "../components/layout/content";
-import { FILTER_OPTIONS, TABEL_HEADER } from "../constants";
-import AppointmentModal from "./modals/appointmentModal";
+import TabelList from "../components/common/tabelList.jsx";
+import toolBox from "../components/common/Toolbox.jsx.jsx";
+import Container from "../components/layout/container.jsx";
+import Content from "../components/layout/content.jsx";
+import { FILTER_OPTIONS, TABEL_HEADER } from "../constants/index.js";
+import AppointmentModal from "./modals/appointmentModal.jsx";
 
 dayjs.extend(customParseFormat);
 

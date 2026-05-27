@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import toolBox from "../components/common/Toolbox.jsx";
-import Container from "../components/layout/container";
-import Content from "../components/layout/content";
-import { FILTER_OPTIONS } from "../constants";
-import TableList from "../components/common/tabelList";
-import { TABEL_HEADER } from "../constants";
-import StaffModal from "./modals/staffModal";
+import toolBox from "../components/common/Toolbox.jsx.jsx";
+import Container from "../components/layout/container.jsx";
+import Content from "../components/layout/content.jsx";
+import { FILTER_OPTIONS } from "../constants/index.js";
+import TableList from "../components/common/tabelList.jsx";
+import { TABEL_HEADER } from "../constants/index.js";
+import StaffModal from "./modals/staffModal.jsx";
 
 // اکستنشن dayjs
 dayjs.extend(customParseFormat);
