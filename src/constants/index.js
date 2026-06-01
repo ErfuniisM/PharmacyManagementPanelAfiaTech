@@ -24,7 +24,7 @@ export const SIDEBAR_MENU_ITEMS = [
   {
     item: "Patients",
     src: "../../../public/icons/patients.svg",
-    link: "/ptients",
+    link: "/patients",
   },
   {
     item: "Pharmacies",

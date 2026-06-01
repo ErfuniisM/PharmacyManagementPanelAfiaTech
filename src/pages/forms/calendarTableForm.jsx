@@ -1,13 +1,11 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import z from "zod";
 import { useForm } from "react-hook-form";
 
 function sleep(ms) {
   return new Promise((resolver) => setTimeout(resolver, ms));
 }
-const onSubmit = async (data) => {
+const onSubmit = async () => {
   await sleep(2000);
-  console.log(data);
+  // submit handler placeholder
 };
 
 const CalendarTableForm = () => {
@@ -18,7 +16,7 @@ const CalendarTableForm = () => {
   } = useForm();
   return (
     <form
-      onSubmit={handleSubmit(async (data) => await onSubmit(data))}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex h-full flex-col justify-between"
     >
       <div className="flex flex-col gap-4">

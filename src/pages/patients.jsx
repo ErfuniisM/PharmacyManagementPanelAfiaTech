@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import toolBox from "../components/common/Toolbox.jsx.jsx";
+import ToolBox from "../components/common/Toolbox.jsx";
 import Container from "../components/layout/container.jsx";
 import Content from "../components/layout/content.jsx";
 import TableList from "../components/common/tabelList.jsx";
@@ -89,7 +89,7 @@ const Patients = () => {
         title="Patients"
         buttonTitle="Add a Patients"
       >
-        <Toolbox
+        <ToolBox
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}

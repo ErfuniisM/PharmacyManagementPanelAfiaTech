@@ -1,5 +1,4 @@
 // import Appoinments_list from "../components/common/appoinments_list";
-import { useForm } from "react-hook-form";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
 import FormClinicInfo from "./forms/clinicInfoForm";

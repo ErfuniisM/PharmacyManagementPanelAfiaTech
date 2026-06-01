@@ -9,7 +9,6 @@ function sleep(ms) {
 
 const onSubmit = async (data) => {
   await sleep(2000);
-  console.log(data);
 };
 
 const schema = z.object({

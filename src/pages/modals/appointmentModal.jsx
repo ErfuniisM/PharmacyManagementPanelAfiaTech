@@ -4,19 +4,17 @@ import SearchBox from "../../components/common/searchBox";
 import "react-calendar/dist/Calendar.css";
 import MyCalendar from "../../components/common/calendar";
 
-const AppointmentModal = ({ onClose, SearchPlaceholder }) => {
+const AppointmentModal = ({ onClose }) => {
   const [step, setStep] = useState(1);
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
   //
-  const [value, setValue] = useState(new Date());
 
   const handleDone = () => {
     if (onClose) {
       onClose();
     }
   };
-  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
 
   const timeSlots = [

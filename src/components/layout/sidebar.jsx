@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { SIDEBAR_MENU_ITEMS } from "../../constants";
 import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = ({ onClose, isCollapsed }) => {
-  const [activeClass, setActiveClass] = useState("");
   const location = useLocation();
-
-  useEffect(() => {
-    let newItem = "";
-    SIDEBAR_MENU_ITEMS.forEach((menu) => {
-      if (location.pathname === menu.link) {
-        newItem = menu.item;
-      }
-    });
-    setActiveClass(newItem);
+  const activeClass = useMemo(() => {
+    const found = SIDEBAR_MENU_ITEMS.find((m) => m.link === location.pathname);
+    return found ? found.item : "";
   }, [location.pathname]);
 
   return (
@@ -65,7 +58,6 @@ const Sidebar = ({ onClose, isCollapsed }) => {
             <Link
               to={menu.link}
               onClick={() => {
-                setActiveClass(menu.item);
                 if (onClose) onClose();
               }}
               className={`

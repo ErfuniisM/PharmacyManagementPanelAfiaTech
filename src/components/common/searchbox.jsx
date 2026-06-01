@@ -1,4 +1,4 @@
-const SearchBox = ({ term, onSearch, SearchPlaceholder }) => {
+const SearchBox = ({ onSearch, SearchPlaceholder }) => {
   return (
     <input
       onChange={(t) => onSearch(t.target.value)}

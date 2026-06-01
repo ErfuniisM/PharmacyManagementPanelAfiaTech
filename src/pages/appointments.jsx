@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import TabelList from "../components/common/tabelList.jsx";
-import toolBox from "../components/common/Toolbox.jsx.jsx";
+import ToolBox from "../components/common/ToolBox.jsx";
 import Container from "../components/layout/container.jsx";
 import Content from "../components/layout/content.jsx";
 import { FILTER_OPTIONS, TABEL_HEADER } from "../constants/index.js";
@@ -101,7 +101,7 @@ const Appointments = () => {
         buttonTitle="Add an Appointment"
         modalTitle="Appointment Modal"
       >
-        <Toolbox
+        <ToolBox
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
@@ -122,9 +122,7 @@ const Appointments = () => {
             header={APPOINTNET_TABEL_HEADER}
             body={SEARCHED_APPOINTMENTS}
             itemsPerPage={8}
-            onActionClick={(action, row) => {
-              console.log(action, row);
-            }}
+            onActionClick={(action, row) => {}}
           />
         </div>
       </Content>

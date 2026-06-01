@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 const TabelList = ({ header, body, itemsPerPage = 10 }) => {
-  const [isMobile, setIsMobile] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentMobileIndex, setCurrentMobileIndex] = useState(0);
 
@@ -10,15 +9,7 @@ const TabelList = ({ header, body, itemsPerPage = 10 }) => {
   const currentItems = body?.slice(indexOfFirstItem, indexOfLastItem) || [];
   const totalPages = Math.ceil((body?.length || 0) / itemsPerPage);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  // removed isMobile state and resize listener (layout handled by CSS breakpoints)
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -45,8 +36,10 @@ const TabelList = ({ header, body, itemsPerPage = 10 }) => {
   };
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     setCurrentPage(1);
     setCurrentMobileIndex(0);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [body]);
 
   const getStatusColor = (status) => {

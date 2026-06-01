@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import toolBox from "../components/common/Toolbox.jsx";
-import Container from "../components/layout/container";
-import Content from "../components/layout/content";
-import TableList from "../components/common/tabelList";
-import { FILTER_OPTIONS, TABEL_HEADER } from "../constants";
-import PhatmaciesModal from "./modals/phatmaciesModal";
+import ToolBox from "../components/common/Toolbox.jsx";
+import Container from "../components/layout/container.jsx";
+import Content from "../components/layout/content.jsx";
+import TableList from "../components/common/tabelList.jsx";
+import { FILTER_OPTIONS, TABEL_HEADER } from "../constants/index.js";
+import PharmaciesModal from "./modals/pharmaciesModal.jsx";
 
 const PHARMACIES_FILTER_OPTIONS = [FILTER_OPTIONS.branch, FILTER_OPTIONS.wh];
 
@@ -16,7 +16,7 @@ const PHARMACIES_TABEL_HEADER = [
   TABEL_HEADER.action,
 ];
 
-const Phatmacies = () => {
+const Pharmacies = () => {
   const [term, setTerm] = useState("");
   const [selectedFilters, setSelectedFilters] = useState({
     branch: "All",
@@ -24,7 +24,7 @@ const Phatmacies = () => {
   });
 
   const [loading, setLoading] = useState(true);
-  const [phatmacies, setPhatmacies] = useState([]);
+  const [pharmacies, setPharmacies] = useState([]);
 
   useEffect(() => {
     fetch(
@@ -37,11 +37,11 @@ const Phatmacies = () => {
         return res.json();
       })
       .then((data) => {
-        setPhatmacies(data);
+        setPharmacies(data);
         setLoading(false);
       });
   }, []);
-  const SEARCHED_PHARMACIES = phatmacies
+  const SEARCHED_PHARMACIES = pharmacies
     .filter((appt) => {
       const pharmacy = appt.pharmacyName?.toLowerCase() ?? "";
       const branch = appt.branch?.toLowerCase() ?? "";
@@ -59,11 +59,11 @@ const Phatmacies = () => {
   return (
     <Container>
       <Content
-        modal={<PhatmaciesModal />}
-        title="Phatmacies"
-        buttonTitle="Add a Pharmacies"
+        modal={<PharmaciesModal />}
+        title="Pharmacies"
+        buttonTitle="Add a Pharmacy"
       >
-        <Toolbox
+        <ToolBox
           term={term}
           onSearch={setTerm}
           onFilter={setSelectedFilters}
@@ -86,4 +86,4 @@ const Phatmacies = () => {
   );
 };
 
-export default Phatmacies;
+export default Pharmacies;

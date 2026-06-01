@@ -10,6 +10,7 @@ import ClinicInfo from "./pages/ClinicInfo";
 import Doctors from "./pages/Doctors";
 import Patients from "./pages/Patients";
 import Schedule from "./pages/Schedule";
+import Pharmacies from "./pages/Pharmacies";
 import Staff from "./pages/Staff";
 import Dashboard from "./pages/Dashboard";
 
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/staff" element={<Staff />} />
         <Route path="/patients" element={<Patients />} />
+        <Route path="/pharmacies" element={<Pharmacies />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/clinic-info" element={<ClinicInfo />} />
 
