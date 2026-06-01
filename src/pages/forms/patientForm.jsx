@@ -7,7 +7,7 @@ function sleep(ms) {
   return new Promise((resolver) => setTimeout(resolver, ms));
 }
 
-const onSubmit = async (data) => {
+const onSubmit = async () => {
   await sleep(2000);
 };
 
@@ -16,20 +16,23 @@ const schema = z.object({
   email: z.string().min(1, "Email Empty").min(3, "Error Text 3"),
   nationalID: z
     .string()
-    .min(8, "National ID Is Short")
-    .max(8, "Too Long")
-    .refine((val) => val.leng === 0, {
-      message: "National Empty",
-      if: (val) => val.lengh === 0,
-    }),
+    .trim()
+    .min(1, "National ID Is Empty")
+    .length(8, "National ID must be 8 digits")
+    .regex(/^\d{8}$/, "Digits only"),
   age: z.string().min(1, "Age Empty").max(50, "Too Old"),
   phoneNumber: z
     .string()
     .min(1, "Mobile Number Is Empty")
     .regex(/^09\d{9}$/, "Invalid Mobile Number"),
-  // اضافه کردن فیلدهای جدید به schema
+  gender: z.enum(["Male", "Female"], {
+    errorMap: () => ({ message: "Gender is required" }),
+  }),
   underlyingDisease: z.string().optional(),
-  insuranceType: z.string().optional(),
+  insuranceCompany: z.string().optional(),
+  insuranceCategory: z.string().optional(),
+  insuranceId: z.string().optional(),
+  insuranceExpiration: z.string().optional(),
   surgeryHistory: z.string().optional(),
   medications: z.string().optional(),
 });
@@ -99,6 +102,11 @@ const PatientForm = () => {
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
+              {errors?.gender && (
+                <p className="font-bold text-[12px] text-red-600 ">
+                  {errors.gender.message}
+                </p>
+              )}
             </div>
           </div>
           <div className="flex flex-col gap-8 w-full">
@@ -127,8 +135,11 @@ const PatientForm = () => {
               <input
                 {...register("nationalID")}
                 type="text"
+                inputMode="numeric"
+                maxLength={8}
+                autoComplete="off"
                 className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1]  rounded-[5px]"
-              />{" "}
+              />
               {errors?.nationalID && (
                 <p className="font-bold text-[12px] text-red-600 ">
                   {errors.nationalID.message}
@@ -176,7 +187,7 @@ const PatientForm = () => {
                 Company Name
               </label>
               <select
-                {...register("insuranceType")}
+                {...register("insuranceCompany")}
                 className="w-full h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
               >
                 <option value="Company Name 1">Company Name 1</option>
@@ -192,7 +203,7 @@ const PatientForm = () => {
                 Category
               </label>
               <select
-                {...register("insuranceType")}
+                {...register("insuranceCategory")}
                 className="w-full h-[40px] flex items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
               >
                 <option value="Category Name 1">Category Name 1</option>
@@ -208,7 +219,7 @@ const PatientForm = () => {
                 Insurance ID
               </label>
               <input
-                {...register("age")}
+                {...register("insuranceId")}
                 type="text"
                 className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
               />
@@ -220,6 +231,7 @@ const PatientForm = () => {
                 Insurance expiration
               </label>
               <input
+                {...register("insuranceExpiration")}
                 type="date"
                 className="w-full flex h-auto items-center shadow-sm justify-center text-black p-2 bg-[#f1f1f1] rounded-[5px]"
               />

@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import TotalCards from "../components/common/TotalCards";
 import Container from "../components/layout/container";
 import Content from "../components/layout/content";
-import TableList from "../components/common/tabelList";
+import TableList from "../components/common/TableList.jsx";
 import { TABEL_HEADER } from "../constants";
 
-const APPOINTNET_TABEL_HEADER = [
+const APPOINTMENT_TABEL_HEADER = [
   TABEL_HEADER.national,
   TABEL_HEADER.patient,
   TABEL_HEADER.doctor,
@@ -83,7 +83,7 @@ const Dashboard = () => {
         <div className="flex flex-col mt-4 gap-4 justify-between h-16">
           <h3 className="text-1xl font-bold  p-4">Today's Appoinment</h3>
           <TableList
-            header={APPOINTNET_TABEL_HEADER}
+            header={APPOINTMENT_TABEL_HEADER}
             body={dashboard}
             itemsPerPage={6}
           />

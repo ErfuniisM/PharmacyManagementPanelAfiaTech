@@ -2,8 +2,6 @@ import { useState } from "react";
 import React from "react";
 import Modal from "react-modal";
 
-Modal.setAppElement("#root");
-
 const Content = ({ children, title, buttonTitle, modal, modalTitle }) => {
   const [modalIsOpen, setIsModalOpen] = useState(false);
 

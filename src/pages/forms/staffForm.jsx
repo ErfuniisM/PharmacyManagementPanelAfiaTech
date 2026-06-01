@@ -6,7 +6,7 @@ import React, { useState } from "react";
 function sleep(ms) {
   return new Promise((resolver) => setTimeout(resolver, ms));
 }
-const onSubmit = async (data) => {
+const onSubmit = async () => {
   await sleep(2000);
 };
 

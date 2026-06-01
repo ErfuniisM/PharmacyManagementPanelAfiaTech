@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import Appointments from "./pages/Appointments";
-import Clinicinfo from "./pages/Clinicinfo";
+import ClinicInfo from "./pages/ClinicInfo.jsx";
 import Doctors from "./pages/Doctors";
 import Patients from "./pages/Patients";
 import Schedule from "./pages/Schedule";
@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/patients" element={<Patients />} />
         <Route path="/pharmacies" element={<Pharmacies />} />
         <Route path="/schedule" element={<Schedule />} />
-        <Route path="/clinic-info" element={<ClinicInfo />} />
+        <Route path="/clinicinfo" element={<ClinicInfo />} />
 
         {/* fallback */}
         <Route path="*" element={<Navigate to="/dashboard" />} />

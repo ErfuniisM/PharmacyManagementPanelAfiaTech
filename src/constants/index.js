@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:5000";
+
 
 export const SIDEBAR_MENU_ITEMS = [
   {
@@ -39,7 +39,7 @@ export const SIDEBAR_MENU_ITEMS = [
   {
     item: "Clinic info",
     src: "../../../public/icons/clinic-info.svg",
-    link: "/clinic-info",
+    link: "/clinicinfo",
   },
 ];
 

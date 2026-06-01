@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import TabelList from "../components/common/tabelList.jsx";
+import TableList from "../components/common/TableList.jsx";
 import ToolBox from "../components/common/ToolBox.jsx";
 import Container from "../components/layout/container.jsx";
 import Content from "../components/layout/content.jsx";
@@ -16,13 +16,13 @@ const convertToISODate = (dateString) => {
   return parsed.isValid() ? parsed.format("YYYY-MM-DD") : "";
 };
 
-const APPOINTNET_FILTER_OPTIONS = [
+const APPOINTMENT_FILTER_OPTIONS = [
   FILTER_OPTIONS.date,
   FILTER_OPTIONS.time,
   FILTER_OPTIONS.status,
 ];
 
-const APPOINTNET_TABEL_HEADER = [
+const APPOINTMENT_TABEL_HEADER = [
   TABEL_HEADER.national,
   TABEL_HEADER.patient,
   TABEL_HEADER.doctor,
@@ -114,15 +114,15 @@ const Appointments = () => {
             })
           }
           selectedFilters={selectedFilters}
-          filters={APPOINTNET_FILTER_OPTIONS}
+          filters={APPOINTMENT_FILTER_OPTIONS}
         />
 
         <div className="mt-4 sm:mt-6">
-          <TabelList
-            header={APPOINTNET_TABEL_HEADER}
+          <TableList
+            header={APPOINTMENT_TABEL_HEADER}
             body={SEARCHED_APPOINTMENTS}
             itemsPerPage={8}
-            onActionClick={(action, row) => {}}
+            onActionClick={() => {}}
           />
         </div>
       </Content>

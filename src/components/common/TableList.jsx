@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const TabelList = ({ header, body, itemsPerPage = 10 }) => {
+const TableList = ({ header, body, itemsPerPage = 10 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentMobileIndex, setCurrentMobileIndex] = useState(0);
 
@@ -296,4 +296,4 @@ const TabelList = ({ header, body, itemsPerPage = 10 }) => {
   );
 };
 
-export default TabelList;
+export default TableList;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import ToolBox from "../components/common/Toolbox.jsx";
+import ToolBox from "../components/common/ToolBox.jsx";
 import Container from "../components/layout/container.jsx";
 import Content from "../components/layout/content.jsx";
 import { FILTER_OPTIONS } from "../constants/index.js";
-import TableList from "../components/common/tabelList.jsx";
+import TableList from "../components/common/TableList.jsx";
 import { TABEL_HEADER } from "../constants/index.js";
 import DoctorsModal from "./modals/doctorsModal.jsx";
 

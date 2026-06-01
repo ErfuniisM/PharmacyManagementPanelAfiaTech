@@ -72,12 +72,12 @@ const Filter = ({ items, onFilter, onReset, selectedFilters }) => {
       [FILTER_OPTIONS.spec]: [
         { value: "All", label: "All Specialties" },
         { value: "Cardiology", label: "Cardiology" },
-        { value: "Dematology", label: "Dematology" },
+        { value: "Dermatology", label: "Dermatology" },
       ],
       [FILTER_OPTIONS.depart]: [
         { value: "All", label: "All Departments" },
         { value: "Cardiology", label: "Cardiology" },
-        { value: "Dematology", label: "Dematology" },
+        { value: "Dermatology", label: "Dermatology" },
       ],
       [FILTER_OPTIONS.ins]: [
         { value: "All", label: "All Insurance" },
