@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import Appointments from "./pages/Appointments";
-import ClinicInfo from "./pages/ClinicInfo";
+import Clinicinfo from "./pages/Clinicinfo";
 import Doctors from "./pages/Doctors";
 import Patients from "./pages/Patients";
 import Schedule from "./pages/Schedule";

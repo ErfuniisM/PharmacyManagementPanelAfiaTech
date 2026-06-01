@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import SearchBox from "../../components/common/searchBox";
+import SearchBox from "../../components/common/SearchBox";
 
 import "react-calendar/dist/Calendar.css";
 import MyCalendar from "../../components/common/calendar";
